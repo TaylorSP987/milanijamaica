@@ -154,6 +154,11 @@ section.cat{position:relative;overflow-x:clip;padding:90px 0 20px;scroll-margin-
 .sheet .head h3{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1}
 .x{width:38px;height:38px;border:1px solid var(--line);display:grid;place-items:center;flex:none;font-size:18px}
 .sheet .body{overflow-y:auto;padding:4px 22px 20px}
+.lipview{position:relative;margin:0 0 14px;border-radius:14px;overflow:hidden;aspect-ratio:3/2;background:#111}
+.lipimg{position:absolute;inset:0;background-repeat:no-repeat}
+.lipview .tone{position:absolute;left:10px;bottom:10px;display:flex;gap:6px}
+.lipview .tone button{font-size:11px;font-weight:600;letter-spacing:.06em;padding:7px 11px;border-radius:999px;background:rgba(0,0,0,.6);color:#fff;border:1px solid rgba(255,255,255,.3)}
+.lipview .tone button.on{background:var(--foil);color:#000;border-color:transparent}
 .preview{display:flex;align-items:center;gap:16px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;margin-bottom:18px}
 .preview .dot{width:70px;height:70px}
 .preview .t{font-family:var(--display);font-size:22px;font-style:italic}
@@ -493,9 +498,11 @@ function openProduct(id){
   if(p.shades.length<=1){ addPick(p,p.shades[0]||""); return; }
   sheetProd=p; sheetShade=(["powders","face"].includes(p.cat)&&p.shades.length>4)?p.shades[Math.floor(p.shades.length*0.6)]:p.shades[0]; $("#sheetTitle").textContent=p.name; paintProductSheet(); openSheet();
 }
+let lipTone="d";
 function paintProductSheet(){
   const p=sheetProd;
-  $("#sheetBody").innerHTML = `<div class="preview">${dot(sheetShade)}<div class="t">${esc(sheetShade)}<small>${p.shades.length} shades · tap to choose</small></div></div>
+  const lip = p.cat==="lips" ? `<div class="lipview"><div class="lipimg" role="img" aria-label="${esc(sheetShade)} on ${lipTone==="d"?"deep":"medium brown"} skin" style="background-image:url(lips-${p.id}-${lipTone}.jpg);background-size:100% ${p.shades.length*100}%;background-position:0 ${p.shades.length>1?p.shades.indexOf(sheetShade)/(p.shades.length-1)*100:0}%"></div><div class="tone"><button class="${lipTone==="d"?"on":""}" data-tone="d">Deep skin</button><button class="${lipTone==="m"?"on":""}" data-tone="m">Medium brown skin</button></div></div>` : "";
+  $("#sheetBody").innerHTML = lip + `<div class="preview">${dot(sheetShade)}<div class="t">${esc(sheetShade)}<small>${p.shades.length} shades · tap to choose</small></div></div>
     <div class="shadegrid">${p.shades.map(s=>`<button class="sw${s===sheetShade?" on":""}" data-pick="${esc(s)}"><span class="ring">${dot(s)}</span>${esc(s.split(" ")[0])}</button>`).join("")}</div>`;
   $("#sheetFoot").innerHTML = `<button class="btn primary block" id="sheetAdd">Add ${esc(sheetShade)} to my picks</button>`;
 }
@@ -539,6 +546,7 @@ document.addEventListener("click",e=>{
   if(t.dataset.open) openProduct(t.dataset.open);
   else if(t.dataset.feat){ featShade=t.dataset.feat; paintFeature(); }
   else if(t.id==="featAdd") addPick(P[0],featShade);
+  else if(t.dataset.tone){ lipTone=t.dataset.tone; paintProductSheet(); }
   else if(t.dataset.pick){ sheetShade=t.dataset.pick; paintProductSheet(); }
   else if(t.id==="sheetAdd"){ addPick(sheetProd,sheetShade); closeSheet(); }
   else if(t.dataset.rm!==undefined){ picks.splice(+t.dataset.rm,1); store.set(picks); syncPicks(); paintPicks(); }
