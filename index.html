@@ -213,6 +213,12 @@ footer .big2{font-family:var(--sans);font-weight:300;font-size:min(3.8vw,18px);l
 footer .caps{color:var(--muted);margin-top:18px}
 footer .fine{color:var(--dim);font-size:12px;margin-top:10px;letter-spacing:.06em}
 
+.shot{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;padding:18px}
+.shot.open{display:flex}
+.shotbox{max-width:440px;width:100%;max-height:100%;overflow:auto;text-align:center}
+.shotbox img{width:100%;border-radius:10px;box-shadow:0 0 0 1px rgba(220,187,106,.4);-webkit-touch-callout:default}
+.shothint{color:var(--muted);font-size:13px;margin:12px 0}
+.shotbtns{display:grid;gap:8px}
 .toast{position:fixed;left:50%;top:86px;transform:translate(-50%,-20px);opacity:0;z-index:70;background:#111;border:1px solid rgba(255,255,255,.25);padding:11px 20px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;transition:all .25s;pointer-events:none;white-space:nowrap}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 
@@ -266,10 +272,9 @@ footer .fine{color:var(--dim);font-size:12px;margin-top:10px;letter-spacing:.06e
   <button class="locate" id="useLoc">Use my location instead</button>
   <div class="results" id="results"></div>
   <div class="sendlist" id="sendlist">
-    <p>Keep your picks handy for the beauty counter.</p>
+    <p>Save your picks as a picture and show it at the beauty counter.</p>
     <div class="ctas" style="margin-top:16px">
-      <a class="btn primary" id="waList" href="#" target="_blank" rel="noopener">Send my list to my WhatsApp</a>
-      <button class="btn ghost" id="copyList">Copy my list</button>
+      <button class="btn primary" data-savelist>Save my list to my photos</button>
     </div>
   </div>
   <p class="note">Shade colours on screen are approximate. Try them in store before you buy.</p>
@@ -290,6 +295,13 @@ footer .fine{color:var(--dim);font-size:12px;margin-top:10px;letter-spacing:.06e
   <div class="foot" id="sheetFoot"></div>
 </div>
 <div class="toast" id="toast"></div>
+<div class="shot" id="shot" role="dialog" aria-modal="true">
+  <div class="shotbox">
+    <img id="shotImg" alt="Your Milani picks">
+    <p class="shothint">Tap Save, or press and hold the picture and choose <b>Save to Photos</b>.</p>
+    <div class="shotbtns"><button class="btn primary" id="shotSave">Save to my photos</button><button class="btn ghost" id="shotClose">Close</button></div>
+  </div>
+</div>
 
 <script>
 const slug = s => s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/['’.]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
@@ -511,7 +523,7 @@ function openPicks(){ $("#sheetTitle").textContent="My Picks"; paintPicks(); ope
 function paintPicks(){
   $("#sheetBody").innerHTML = picks.length ? picks.map((k,i)=>`<div class="pick">${dot(k.shade)}<div class="t">${esc(k.name)}<small>${k.shade?esc(k.shade):"One shade"}</small></div><button class="rm" data-rm="${i}">Remove</button></div>`).join("")
     : `<p class="empty">Nothing saved yet. Tap any product to choose a shade.</p>`;
-  $("#sheetFoot").innerHTML = picks.length ? `<button class="btn primary block" id="toStores">Where can I buy these?</button>` : `<button class="btn ghost block" data-close>Keep browsing</button>`;
+  $("#sheetFoot").innerHTML = picks.length ? `<div style="display:grid;gap:8px"><button class="btn primary block" data-savelist>Save my list to my photos</button><button class="btn ghost block" id="toStores">Where can I buy these?</button></div>` : `<button class="btn ghost block" data-close>Keep browsing</button>`;
 }
 
 /* ---------- picks ---------- */
@@ -524,10 +536,65 @@ function syncPicks(){
   $("#pickCount").textContent=picks.length;
   $("#floatTxt").textContent=`${picks.length} pick${picks.length===1?"":"s"} saved`;
   $("#float").classList.toggle("show",picks.length>0&&!nearWhere);
-  $("#waList").href="https://wa.me/?text="+encodeURIComponent(listText());
   $("#sendlist").classList.toggle("show",picks.length>0&&!!chosenStore);
 }
 function listText(){ return "My Milani picks:\n"+picks.map(k=>`• ${k.name}${k.shade?" ("+k.shade+")":""}`).join("\n")+(chosenStore?`\n\nStore: ${chosenStore.n}, ${chosenStore.a}`:""); }
+
+/* ---------- save list as picture ---------- */
+let shotBlob=null;
+function loadImg(src){ return new Promise(res=>{ const im=new Image(); im.onload=()=>res(im); im.onerror=()=>res(null); im.src=src; }); }
+function rrect(x,X,Y,W,H,R){ x.beginPath(); x.moveTo(X+R,Y); x.arcTo(X+W,Y,X+W,Y+H,R); x.arcTo(X+W,Y+H,X,Y+H,R); x.arcTo(X,Y+H,X,Y,R); x.arcTo(X,Y,X+W,Y,R); x.closePath(); }
+function wrap(x,text,maxW){ const words=text.split(" "),lines=[]; let cur=""; for(const w of words){ const t=cur?cur+" "+w:w; if(x.measureText(t).width>maxW&&cur){ lines.push(cur); cur=w; } else cur=t; } if(cur) lines.push(cur); return lines.slice(0,2); }
+async function makeListImage(){
+  if(!picks.length){ toast("Save a shade first"); return; }
+  toast("Making your picture…");
+  try{ await document.fonts.ready; }catch(e){}
+  const W=1080, rowH=190, top=400, foot=300, H=top+picks.length*rowH+foot;
+  const c=document.createElement("canvas"); c.width=W; c.height=H; const x=c.getContext("2d");
+  x.fillStyle="#050505"; x.fillRect(0,0,W,H);
+  const g=x.createLinearGradient(0,60,0,220); g.addColorStop(0,"#f3e2a8"); g.addColorStop(.45,"#dcbb6a"); g.addColorStop(1,"#b48b3c");
+  x.textAlign="center"; x.fillStyle=g; x.font="600 120px Cinzel, Georgia, serif";
+  x.letterSpacing="24px"; x.fillText("MILANI",W/2+12,190);
+  x.letterSpacing="14px"; x.fillStyle="#fff"; x.font="300 30px Jost, Arial, sans-serif"; x.fillText("COSMETICS",W/2+7,250);
+  x.fillStyle="#dcbb6a"; x.font="500 26px Jost, Arial, sans-serif"; x.fillText("JAMAICA",W/2+7,300);
+  x.letterSpacing="0px";
+  x.strokeStyle="rgba(220,187,106,.6)"; x.lineWidth=2; x.beginPath(); x.moveTo(90,350); x.lineTo(W-90,350); x.stroke();
+  x.textAlign="left"; x.fillStyle="#9a958d"; x.font="500 24px Jost, Arial, sans-serif"; x.letterSpacing="6px"; x.fillText("MY PICKS",90,385); x.letterSpacing="0px";
+  for(let i=0;i<picks.length;i++){
+    const k=picks[i], p=P.find(q=>q.name===k.name)||{}, y=top+i*rowH+20, S=150;
+    rrect(x,90,y,S,S,16); x.save(); x.clip(); x.fillStyle="#141414"; x.fillRect(90,y,S,S);
+    let drawn=false;
+    if(p.cat==="lips" && k.shade){ const im=await loadImg(`lips-${p.id}-${typeof lipTone!=="undefined"?lipTone:"d"}.jpg`); if(im){ const n=p.shades.length, idx=p.shades.indexOf(k.shade), th=im.height/n; const sw=th; x.drawImage(im,(im.width-sw)/2,idx*th,sw,th,90,y,S,S); drawn=true; } }
+    if(!drawn && p.id==="p0" && k.shade){ const ph=POWDER_PHOTOS[k.shade.split(" ")[0]]; if(ph){ const im=await loadImg(ph); if(im){ x.drawImage(im,90,y,S,S); drawn=true; } } }
+    if(!drawn && PHOTOS[p.id]){ const im=await loadImg(PHOTOS[p.id]); if(im){ x.drawImage(im,90,y,S,S); drawn=true; } }
+    x.restore();
+    const tx=90+S+36, maxW=W-tx-90;
+    x.fillStyle="#fff"; x.font="600 36px Jost, Arial, sans-serif";
+    const lines=wrap(x,k.name,maxW); lines.forEach((l,j)=>x.fillText(l,tx,y+46+j*44));
+    const sy=y+46+lines.length*44+8;
+    if(k.shade){ x.fillStyle=col(k.shade); x.beginPath(); x.arc(tx+16,sy-10,16,0,Math.PI*2); x.fill(); x.fillStyle="#dcbb6a"; x.font="500 32px Jost, Arial, sans-serif"; x.fillText(k.shade,tx+44,sy); }
+    else { x.fillStyle="#dcbb6a"; x.font="500 30px Jost, Arial, sans-serif"; x.fillText("One shade",tx,sy); }
+    if(i<picks.length-1){ x.strokeStyle="rgba(255,255,255,.08)"; x.lineWidth=1; x.beginPath(); x.moveTo(90,y+rowH-12); x.lineTo(W-90,y+rowH-12); x.stroke(); }
+  }
+  const fy=top+picks.length*rowH+40;
+  x.strokeStyle="rgba(220,187,106,.6)"; x.lineWidth=2; x.beginPath(); x.moveTo(90,fy); x.lineTo(W-90,fy); x.stroke();
+  x.textAlign="center"; x.fillStyle="#9a958d"; x.font="500 24px Jost, Arial, sans-serif"; x.letterSpacing="6px";
+  x.fillText(chosenStore?"YOUR NEAREST STORE":"AVAILABLE AT EVERY",W/2+3,fy+60); x.letterSpacing="0px";
+  x.fillStyle="#fff"; x.font="600 42px Jost, Arial, sans-serif"; x.fillText(chosenStore?chosenStore.n:"Fontana Pharmacy",W/2,fy+120);
+  if(chosenStore){ x.fillStyle="#bdb7ae"; x.font="400 28px Jost, Arial, sans-serif"; wrap(x,chosenStore.a,W-200).forEach((l,j)=>x.fillText(l,W/2,fy+168+j*36)); }
+  x.fillStyle="rgba(220,187,106,.8)"; x.font="400 22px Jost, Arial, sans-serif"; x.fillText("Show this picture at the beauty counter",W/2,H-40);
+  try{ shotBlob=await new Promise(res=>c.toBlob(res,"image/png")); $("#shotImg").src=URL.createObjectURL(shotBlob); }
+  catch(e){ shotBlob=null; $("#shotImg").src=c.toDataURL("image/png"); }
+  $("#shot").classList.add("open");
+}
+async function saveShot(){
+  const file = shotBlob ? new File([shotBlob],"my-milani-picks.png",{type:"image/png"}) : null;
+  if(file && navigator.canShare && navigator.canShare({files:[file]})){
+    try{ await navigator.share({files:[file],title:"My Milani picks"}); return; }catch(e){ if(e&&e.name==="AbortError") return; }
+  }
+  const a=document.createElement("a"); a.href=$("#shotImg").src; a.download="my-milani-picks.png"; document.body.appendChild(a); a.click(); a.remove();
+  toast("Saved. If it didn't save, press and hold the picture");
+}
 
 /* ---------- stores ---------- */
 function km(a,b,c,d){const R=6371,t=x=>x*Math.PI/180,dl=t(c-a),dg=t(d-b),h=Math.sin(dl/2)**2+Math.cos(t(a))*Math.cos(t(c))*Math.sin(dg/2)**2;return 2*R*Math.asin(Math.sqrt(h));}
@@ -562,7 +629,9 @@ document.addEventListener("click",e=>{
       pos=>{ t.textContent="Use my location instead"; document.querySelectorAll(".parish").forEach(b=>b.classList.remove("on")); showNearest(pos.coords.latitude,pos.coords.longitude,"you"); },
       ()=>{ t.textContent="Use my location instead"; toast("Pick your parish instead"); },{timeout:9000});
   }
-  else if(t.id==="copyList"){ (navigator.clipboard?navigator.clipboard.writeText(listText()):Promise.reject()).then(()=>toast("List copied")).catch(()=>toast("Could not copy")); }
+  else if(t.hasAttribute("data-savelist")){ makeListImage(); }
+  else if(t.id==="shotSave"){ saveShot(); }
+  else if(t.id==="shotClose"){ $("#shot").classList.remove("open"); }
 });
 $("#scrim").addEventListener("click",closeSheet);
 document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeSheet(); });
