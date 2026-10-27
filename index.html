@@ -198,13 +198,35 @@ section.cat{position:relative;overflow-x:clip;padding:90px 0 20px;scroll-margin-
 .store{background:var(--bg);padding:22px 4px;display:grid;grid-template-columns:1fr;gap:6px;border-top:1px solid var(--line)}
 @media(min-width:640px){.store{grid-template-columns:1fr auto;align-items:center;padding:24px 8px}}
 .store .tag{font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:var(--silver)}
-.store h4{font-family:var(--display);font-weight:400;font-size:26px;line-height:1.1}
-.store .addr{color:var(--muted);font-size:14px}
-.store .km{font-size:12px;color:var(--dim);letter-spacing:.08em}
-.store .btn{padding:14px 22px}
+.store h4{font-family:var(--display);font-weight:400;font-size:26px;line-height:1.1;margin-bottom:4px}
+.store .ln{display:flex;align-items:flex-start;gap:10px;color:var(--muted);font-size:14px;line-height:1.4;padding:3px 0;width:fit-content}
+.store .ln svg{width:15px;height:15px;flex:none;margin-top:2px;fill:#dcbb6a}
+.store a.tel{color:#e9d9a6;letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.store a.tel:active{opacity:.7}
+.store .km{font-size:12px;color:var(--dim);letter-spacing:.08em;margin-top:4px}
+.store .acts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+@media(min-width:640px){.store .acts{grid-template-columns:auto auto;margin-top:0}}
+.store .btn{padding:14px 22px;text-align:center}
+.store .btn svg{width:13px;height:13px;fill:currentColor;vertical-align:-1px;margin-right:8px}
+/* how to save, step by step */
+.how{padding:44px 0 38px;text-align:center;border-bottom:1px solid var(--line)}
+.how .caps{color:var(--dim)}
+.how h2{font-family:var(--display);font-weight:400;font-size:clamp(26px,4.4vw,38px);margin:8px 0 26px}
+.howto{list-style:none;display:grid;gap:12px;text-align:left;max-width:860px;margin:0 auto;counter-reset:s}
+@media(min-width:720px){.howto.row{grid-template-columns:repeat(3,1fr)}}
+.howto li{display:flex;gap:14px;align-items:center;background:#0d0d0d;border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.howto .n{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(180deg,#f3e2a8,#dcbb6a 45%,#b48b3c);color:#0a0a0a;font-weight:600;font-size:15px}
+.howto b{display:block;font-weight:500;font-size:15px;color:#fff}
+.howto small{display:block;color:var(--muted);font-size:13px;line-height:1.35;margin-top:2px}
+.howto.mini li{padding:10px 12px;border-radius:12px;gap:12px}
+.howto.mini .n{width:28px;height:28px;font-size:13px}
+.howto.mini b{font-size:14px}
+.sheet .howto{margin-bottom:12px}
+.shotbox .howto{margin:14px 0}
 .sendlist{position:relative;z-index:1;margin-top:28px;padding:26px 0 0;border-top:1px solid var(--line);display:none;text-align:center}
 .sendlist.show{display:block}
 .sendlist p{color:var(--muted);font-size:14px}
+.sendlist .howto{max-width:460px;margin:16px auto 0}
 .note{position:relative;z-index:1;color:var(--dim);font-size:12px;margin-top:22px;text-align:center;letter-spacing:.04em}
 
 footer{border-top:1px solid var(--line);padding:60px 0 130px;text-align:center;overflow:hidden}
@@ -214,11 +236,11 @@ footer .big2{font-family:var(--sans);font-weight:300;font-size:min(3.8vw,18px);l
 footer .caps{color:var(--muted);margin-top:18px}
 footer .fine{color:var(--dim);font-size:12px;margin-top:10px;letter-spacing:.06em}
 
-.shot{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;padding:18px}
+.shot{position:fixed;inset:0;z-index:80;background:#050505;display:none;align-items:center;justify-content:center;padding:18px}
 .shot.open{display:flex}
 .shotbox{max-width:440px;width:100%;max-height:100%;overflow:auto;text-align:center}
 .shotbox img{width:100%;border-radius:10px;box-shadow:0 0 0 1px rgba(220,187,106,.4);-webkit-touch-callout:default}
-.shothint{color:var(--muted);font-size:13px;margin:12px 0}
+.shothint{color:var(--dim);font-size:12px;margin:10px 0 0}
 .shotbtns{display:grid;gap:8px}
 .toast{position:fixed;left:50%;top:86px;transform:translate(-50%,-20px);opacity:0;z-index:70;background:#111;border:1px solid rgba(255,255,255,.25);padding:11px 20px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;transition:all .25s;pointer-events:none;white-space:nowrap}
 .toast.show{opacity:1;transform:translate(-50%,0)}
@@ -256,6 +278,16 @@ footer .fine{color:var(--dim);font-size:12px;margin-top:10px;letter-spacing:.06e
 
 <div class="marquee" aria-hidden="true"><div class="track" id="marquee"></div></div>
 
+<section class="how"><div class="wrap">
+  <div class="caps">How it works</div>
+  <h2>Save your list in 3 easy steps</h2>
+  <ol class="howto row">
+    <li><span class="n">1</span><div><b>Choose your shades</b><small>Tap any product, pick a colour, then tap Add.</small></div></li>
+    <li><span class="n">2</span><div><b>Save it as a picture</b><small>Tap My Picks at the top, then Save my list to my photos.</small></div></li>
+    <li><span class="n">3</span><div><b>Show it in store</b><small>Open the picture at the beauty counter. That's it.</small></div></li>
+  </ol>
+</div></section>
+
 <nav class="chips" aria-label="Categories"><div class="row" id="chips"></div></nav>
 
 <main class="wrap" id="catalog"></main>
@@ -272,7 +304,12 @@ footer .fine{color:var(--dim);font-size:12px;margin-top:10px;letter-spacing:.06e
   <button class="locate" id="useLoc">Use my location instead</button>
   <div class="results" id="results"></div>
   <div class="sendlist" id="sendlist">
-    <p>Save your picks as a picture and show it at the beauty counter.</p>
+    <p>Your list is ready. Keep it on your phone for the store.</p>
+    <ol class="howto mini">
+      <li><span class="n">1</span><div><b>Tap the button below</b><small>We turn your picks into a picture.</small></div></li>
+      <li><span class="n">2</span><div><b>Save it to your photos</b><small>It stays in your gallery, no internet needed.</small></div></li>
+      <li><span class="n">3</span><div><b>Show it at the counter</b><small>The store staff will find your shades.</small></div></li>
+    </ol>
     <div class="ctas" style="margin-top:16px">
       <button class="btn primary" data-savelist>Save my list to my photos</button>
     </div>
@@ -298,8 +335,9 @@ footer .fine{color:var(--dim);font-size:12px;margin-top:10px;letter-spacing:.06e
 <div class="shot" id="shot" role="dialog" aria-modal="true">
   <div class="shotbox">
     <img id="shotImg" alt="Your Milani picks">
-    <p class="shothint">Tap Save, or press and hold the picture and choose <b>Save to Photos</b>.</p>
+    <ol class="howto mini" id="shotSteps"></ol>
     <div class="shotbtns"><button class="btn primary" id="shotSave">Save to my photos</button><button class="btn ghost" id="shotClose">Close</button></div>
+    <p class="shothint" id="shotHint"></p>
   </div>
 </div>
 
@@ -794,28 +832,28 @@ const POWDER_PHOTOS = {"190":"powder-190.jpg?v=3","140":"powder-140.jpg?v=3","15
 
 /* Fontana Pharmacy branches */
 const STORES = [
- {n:"Fontana Waterloo",a:"Waterloo Square, Waterloo Road, Kingston 10",p:"St. Andrew",lat:18.0138,lng:-76.7968,q:"Fontana Pharmacy Waterloo Kingston"},
- {n:"Fontana Barbican",a:"Barbican Square, Barbican Road, Kingston 8",p:"St. Andrew",lat:18.0352,lng:-76.7712,q:"Fontana Pharmacy Barbican Square Kingston"},
- {n:"Fontana Loshusan Plaza",last:1,a:"Loshusan Plaza, Barbican, Kingston 8",p:"St. Andrew",lat:18.0368,lng:-76.7744,q:"Loshusan Plaza Barbican Kingston pharmacy"},
- {n:"Fontana Sovereign Liguanea",last:1,a:"Sovereign Centre, 106 Hope Road, Kingston 6",p:"St. Andrew",lat:18.0186,lng:-76.7683,q:"Fontana Pharmacy Sovereign Centre Liguanea"},
- {n:"Fontana Tropical Plaza",a:"Tropical Plaza, Half Way Tree, Kingston 10",p:"St. Andrew",lat:18.0104,lng:-76.7955,q:"Tropical Plaza Half Way Tree pharmacy"},
- {n:"Fontana Portmore",a:"Parkway Square, Braeton Parkway, Portmore",p:"St. Catherine",lat:17.9621,lng:-76.8866,q:"Fontana Pharmacy Parkway Square Portmore"},
- {n:"Fontana Sovereign Village",a:"Sovereign Village, Portmore",p:"St. Catherine",lat:17.9610,lng:-76.8838,q:"Sovereign Village Portmore pharmacy"},
- {n:"Fontana Montego Bay",a:"Fairview Town Centre, Bogue, Montego Bay",p:"St. James",lat:18.4583,lng:-77.9315,q:"Fontana Pharmacy Fairview Montego Bay"},
- {n:"Fontana Mandeville",a:"Manchester Shopping Centre, Mandeville",p:"Manchester",lat:18.0421,lng:-77.5061,q:"Fontana Pharmacy Mandeville"},
- {n:"Fontana Ocho Rios",a:"Eight Rivers Town Centre, Ocho Rios",p:"St. Ann",lat:18.4043,lng:-77.1046,q:"Fontana Pharmacy Ocho Rios"},
- {n:"Fontana Savanna-la-Mar",a:"Beckford Plaza, Savanna-la-Mar",p:"Westmoreland",lat:18.2190,lng:-78.1322,q:"Fontana Pharmacy Savanna-la-Mar"},
+ {n:"Fontana Waterloo",a:"Waterloo Square, 12 West Kings House Road, Kingston 10",p:"St. Andrew",lat:18.0222,lng:-76.7922,ph:"876-619-7479",q:"Fontana Pharmacy Waterloo Kingston"},
+ {n:"Fontana Barbican",a:"34 East Kings House Road, Barbican, Kingston 8",p:"St. Andrew",lat:18.0307,lng:-76.7752,ph:"876-946-2630",q:"Fontana Pharmacy Barbican Square Kingston"},
+ {n:"Fontana Loshusan Plaza",last:1,a:"Loshusan Shopping Centre, 29 East Kings House Road, Kingston 8",p:"St. Andrew",lat:18.0298,lng:-76.7775,ph:"876-978-2013",q:"Loshusan Plaza Barbican Kingston pharmacy"},
+ {n:"Fontana Sovereign Liguanea",last:1,a:"Sovereign Centre, 106 Hope Road, Kingston 6",p:"St. Andrew",lat:18.021,lng:-76.7694,ph:"876-978-3495",q:"Fontana Pharmacy Sovereign Centre Liguanea"},
+ {n:"Fontana Tropical Plaza",a:"Shop 23, Tropical Plaza, 10 Half Way Tree Road, Kingston 10",p:"St. Andrew",lat:18.0146,lng:-76.7967,ph:"876-920-1539",q:"Tropical Plaza Half Way Tree pharmacy"},
+ {n:"Fontana Portmore",a:"Parkway Square, 7 Braeton Parkway, Portmore",p:"St. Catherine",lat:17.9597,lng:-76.901,ph:"876-740-0055",q:"Fontana Pharmacy Parkway Square Portmore"},
+ {n:"Fontana Sovereign Village",a:"Lot 5-6 Braeton Parkway, Portmore",p:"St. Catherine",lat:17.9607,lng:-76.8985,ph:"876-612-7919",q:"Sovereign Village Portmore pharmacy"},
+ {n:"Fontana Montego Bay",a:"Fairview Town Centre, Alice Eldemire Drive, Montego Bay",p:"St. James",lat:18.4554,lng:-77.9256,ph:"876-952-3866",q:"Fontana Pharmacy Fairview Montego Bay"},
+ {n:"Fontana Mandeville",a:"Manchester Shopping Centre, Caledonia Road, Mandeville",p:"Manchester",lat:18.0458,lng:-77.5081,ph:"876-962-3129",q:"Fontana Pharmacy Mandeville"},
+ {n:"Fontana Ocho Rios",a:"Eight Rivers Town Centre, Ocho Rios",p:"St. Ann",lat:18.4061,lng:-77.1038,ph:"876-974-8889",q:"Fontana Pharmacy Ocho Rios"},
+ {n:"Fontana Savanna-la-Mar",a:"Beckford Plaza, 33 Beckford Street, Savanna-la-Mar",p:"Westmoreland",lat:18.2248,lng:-78.1332,ph:"876-955-9119",q:"Fontana Pharmacy Savanna-la-Mar"},
  {n:"R&R Cosmetics",a:"Junction, St. Elizabeth",p:"St. Elizabeth",lat:17.9054,lng:-77.6091,q:"R&R Cosmetics Junction St. Elizabeth Jamaica"},
  {n:"La Vega Pharmacy",a:"Shop 9, St. Jago Shopping Centre, 2 Burke Road, Spanish Town",p:"St. Catherine",lat:17.9916,lng:-76.9498,q:"La Vega Pharmacy St. Jago Shopping Centre Spanish Town"},
- {n:"Liguanea Drug & Garden Centre",a:"134 Old Hope Road, Liguanea, Kingston 6",p:"St. Andrew",lat:18.0195,lng:-76.7666,q:"Liguanea Drug & Garden Centre 134 Old Hope Road Kingston"},
- {n:"Young's Pharmacy",a:"29 Main Street, May Pen",p:"Clarendon",lat:17.9668,lng:-77.2418,q:"Young's Pharmacy 29 Main Street May Pen"},
- {n:"Manor Park Pharmacy",a:"Lower Manor Park Plaza, 186 Constant Spring Road, Kingston 8",p:"St. Andrew",lat:18.0508,lng:-76.7928,q:"Manor Park Pharmacy 186 Constant Spring Road Kingston"},
- {n:"Chesterville Pharmacy",a:"Winchester Road, Half Way Tree, Kingston 10",p:"St. Andrew",lat:18.0111,lng:-76.7946,q:"Chesterville Pharmacy Winchester Road Kingston"},
- {n:"Vivian's Beauty Supplies",a:"Shop 69, Portmore Pines Plaza, Portmore",p:"St. Catherine",lat:17.9638,lng:-76.8934,q:"Vivians Beauty Supplies Portmore Pines Plaza"},
- {n:"Benson's Pharmacy Spanish Town",a:"34 Wellington Street, Spanish Town",p:"St. Catherine",lat:17.9941,lng:-76.9581,q:"Bensons Pharmacy 34 Wellington Street Spanish Town"},
- {n:"Benson's Pharmacy Old Harbour",a:"11 Main Street, Old Harbour",p:"St. Catherine",lat:17.9382,lng:-77.1149,q:"Benson's Pharmacy 11 Main Street Old Harbour"},
- {n:"EHUD Pharmacy",a:"Gateway Plaza, 7 West Street, Old Harbour",p:"St. Catherine",lat:17.9387,lng:-77.1134,q:"EHUD Pharmacy Gateway Plaza Old Harbour"},
- {n:"Cherry's Hair & More",a:"1 Balmoral Avenue, 65 Half Way Tree Road, Kingston 10",p:"St. Andrew",lat:18.0058,lng:-76.7951,q:"Cherrys Hair & More Half Way Tree Road Kingston"}
+ {n:"Liguanea Drug & Garden Centre",a:"134 Old Hope Road, Liguanea, Kingston 6",p:"St. Andrew",lat:18.0195,lng:-76.7666,ph:"876-977-0066",q:"Liguanea Drug & Garden Centre 134 Old Hope Road Kingston"},
+ {n:"Young's Pharmacy",a:"29 Main Street, May Pen",p:"Clarendon",lat:17.9668,lng:-77.2418,ph:"876-986-2407",q:"Young's Pharmacy 29 Main Street May Pen"},
+ {n:"Manor Park Pharmacy",a:"Lower Manor Park Plaza, 186 Constant Spring Road, Kingston 8",p:"St. Andrew",lat:18.0508,lng:-76.7928,ph:"876-924-1424",q:"Manor Park Pharmacy 186 Constant Spring Road Kingston"},
+ {n:"Chesterville Pharmacy",a:"Winchester Road, Half Way Tree, Kingston 10",p:"St. Andrew",lat:18.0111,lng:-76.7946,ph:"876-929-0195",q:"Chesterville Pharmacy Winchester Road Kingston"},
+ {n:"Vivian's Beauty Supplies",a:"Shop 69, Portmore Pines Plaza, Portmore",p:"St. Catherine",lat:17.9638,lng:-76.8934,ph:"876-896-6634",q:"Vivians Beauty Supplies Portmore Pines Plaza"},
+ {n:"Benson's Pharmacy Spanish Town",a:"34 Wellington Street, Spanish Town",p:"St. Catherine",lat:17.9941,lng:-76.9581,ph:"876-671-9323",q:"Bensons Pharmacy 34 Wellington Street Spanish Town"},
+ {n:"Benson's Pharmacy Old Harbour",a:"11 Main Street, Old Harbour",p:"St. Catherine",lat:17.9382,lng:-77.1149,ph:"876-745-2149",q:"Benson's Pharmacy 11 Main Street Old Harbour"},
+ {n:"EHUD Pharmacy",a:"Gateway Plaza, 7 West Street, Old Harbour",p:"St. Catherine",lat:17.9387,lng:-77.1134,ph:"876-983-2663",q:"EHUD Pharmacy Gateway Plaza Old Harbour"},
+ {n:"Cherry's Hair & More",a:"1 Balmoral Avenue, 65 Half Way Tree Road, Kingston 10",p:"St. Andrew",lat:18.0058,lng:-76.7951,ph:"876-929-0860",q:"Cherrys Hair & More Half Way Tree Road Kingston"}
 ];
 
 /* parish reference points (capital towns) */
@@ -920,7 +958,7 @@ function openPicks(){ $("#sheetTitle").textContent="My Picks"; paintPicks(); ope
 function paintPicks(){
   $("#sheetBody").innerHTML = picks.length ? picks.map((k,i)=>`<div class="pick">${dot(k.shade)}<div class="t">${esc(k.name)}<small>${k.shade?esc(k.shade):"One shade"}</small></div><button class="rm" data-rm="${i}">Remove</button></div>`).join("")
     : `<p class="empty">Nothing saved yet. Tap any product to choose a shade.</p>`;
-  $("#sheetFoot").innerHTML = picks.length ? `<div style="display:grid;gap:8px"><button class="btn primary block" data-savelist>Save my list to my photos</button><button class="btn ghost block" id="toStores">Where can I buy these?</button></div>` : `<button class="btn ghost block" data-close>Keep browsing</button>`;
+  $("#sheetFoot").innerHTML = picks.length ? `<ol class="howto mini"><li><span class="n">1</span><div><b>Tap Save my list</b><small>Your picks become one picture.</small></div></li><li><span class="n">2</span><div><b>Save the picture, show it in store</b><small>Find it in your photos at the beauty counter.</small></div></li></ol><div style="display:grid;gap:8px"><button class="btn primary block" data-savelist>Save my list to my photos</button><button class="btn ghost block" id="toStores">Where can I buy these?</button></div>` : `<button class="btn ghost block" data-close>Keep browsing</button>`;
 }
 
 /* ---------- picks ---------- */
@@ -935,7 +973,7 @@ function syncPicks(){
   $("#float").classList.toggle("show",picks.length>0&&!nearWhere);
   $("#sendlist").classList.toggle("show",picks.length>0&&!!chosenStore);
 }
-function listText(){ return "My Milani picks:\n"+picks.map(k=>`• ${k.name}${k.shade?" ("+k.shade+")":""}`).join("\n")+(chosenStore?`\n\nStore: ${chosenStore.n}, ${chosenStore.a}`:""); }
+function listText(){ return "My Milani picks:\n"+picks.map(k=>`• ${k.name}${k.shade?" ("+k.shade+")":""}`).join("\n")+(chosenStore?`\n\nStore: ${chosenStore.n}, ${chosenStore.a}${chosenStore.ph?", "+phNice(chosenStore.ph):""}`:""); }
 
 /* ---------- save list as picture ---------- */
 let shotBlob=null;
@@ -946,7 +984,7 @@ async function makeListImage(){
   if(!picks.length){ toast("Save a shade first"); return; }
   toast("Making your picture…");
   try{ await document.fonts.ready; }catch(e){}
-  const W=1080, rowH=190, top=400, foot=300, H=top+picks.length*rowH+foot;
+  const W=1080, rowH=190, top=400, foot=chosenStore&&chosenStore.ph?360:300, H=top+picks.length*rowH+foot;
   const c=document.createElement("canvas"); c.width=W; c.height=H; const x=c.getContext("2d");
   x.fillStyle="#050505"; x.fillRect(0,0,W,H);
   const g=x.createLinearGradient(0,60,0,220); g.addColorStop(0,"#f3e2a8"); g.addColorStop(.45,"#dcbb6a"); g.addColorStop(1,"#b48b3c");
@@ -978,10 +1016,18 @@ async function makeListImage(){
   x.textAlign="center"; x.fillStyle="#9a958d"; x.font="500 24px Jost, Arial, sans-serif"; x.letterSpacing="6px";
   x.fillText(chosenStore?"YOUR NEAREST STORE":"AVAILABLE AT",W/2+3,fy+60); x.letterSpacing="0px";
   x.fillStyle="#fff"; x.font="600 42px Jost, Arial, sans-serif"; x.fillText(chosenStore?chosenStore.n:"Fontana & selected stores",W/2,fy+120);
-  if(chosenStore){ x.fillStyle="#bdb7ae"; x.font="400 28px Jost, Arial, sans-serif"; wrap(x,chosenStore.a,W-200).forEach((l,j)=>x.fillText(l,W/2,fy+168+j*36)); }
+  if(chosenStore){ x.fillStyle="#bdb7ae"; x.font="400 28px Jost, Arial, sans-serif"; const al=wrap(x,chosenStore.a,W-200); al.forEach((l,j)=>x.fillText(l,W/2,fy+168+j*36));
+    if(chosenStore.ph){ x.fillStyle="#dcbb6a"; x.font="500 30px Jost, Arial, sans-serif"; x.fillText("Tel  "+phNice(chosenStore.ph),W/2,fy+168+al.length*36+22); } }
   x.fillStyle="rgba(220,187,106,.8)"; x.font="400 22px Jost, Arial, sans-serif"; x.fillText("Show this picture at the beauty counter",W/2,H-40);
   try{ shotBlob=await new Promise(res=>c.toBlob(res,"image/png")); $("#shotImg").src=URL.createObjectURL(shotBlob); }
   catch(e){ shotBlob=null; $("#shotImg").src=c.toDataURL("image/png"); }
+  const ios=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+  const share=!!(shotBlob&&navigator.canShare&&navigator.canShare({files:[new File([shotBlob],"x.png",{type:"image/png"})]}));
+  const st=ios?[["Tap Save to my photos","The gold button below."],["Tap Save Image","Your list goes straight into Photos."],["Show it at the counter","Open Photos in store and show the staff."]]
+    : share?[["Tap Save to my photos","The gold button below."],["Choose Photos, Gallery or Save","Whichever your phone shows you."],["Show it at the counter","Open your gallery in store and show the staff."]]
+    : [["Tap Save to my photos","The gold button below."],["Find it in your Downloads or Gallery","It is called my-milani-picks."],["Show it at the counter","Open it in store and show the staff."]];
+  $("#shotSteps").innerHTML=st.map((s,i)=>`<li><span class="n">${i+1}</span><div><b>${s[0]}</b><small>${s[1]}</small></div></li>`).join("");
+  $("#shotHint").textContent=ios?"Or press and hold the picture and choose Save to Photos.":"Or press and hold the picture and choose Download image.";
   $("#shot").classList.add("open");
 }
 async function saveShot(){
@@ -999,12 +1045,20 @@ function km(a,b,c,d){const R=6371,t=x=>x*Math.PI/180,dl=t(c-a),dg=t(d-b),h=Math.
 const grp=p=>(p==="Kingston"||p==="St. Andrew")?"Kingston & St. Andrew":p;
 /* parishes with no store yet: the neighbouring parish people normally shop in */
 const FALLBACK={"Hanover":"St. James","Trelawny":"St. James","St. Mary":"St. Ann","Portland":"Kingston & St. Andrew","St. Thomas":"Kingston & St. Andrew"};
+const PIN='<svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>';
+const PHONE='<svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>';
+const phNice=p=>p?"("+p.slice(0,3)+") "+p.slice(4):"";
+const phTel=p=>"tel:+1"+p.replace(/\D/g,"");
+const mapUrl=s=>"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(s.q);
 function renderStores(list,lat,lng,intro){
   const r=list.map(s=>({...s,d:km(lat,lng,s.lat,s.lng)})).sort((a,b)=>((a.last||0)-(b.last||0))||(a.d-b.d)); /* newest, smallest-stock stores go last */
   chosenStore=r[0];
   $("#results").innerHTML=`<p class="intro caps">${intro}</p>`+r.map((s,i)=>`
-    <div class="store"><div>${i?"":`<div class="tag">Your nearest store</div>`}<h4>${esc(s.n)}</h4><div class="addr">${esc(s.a)}</div><div class="km">About ${s.d<1?1:Math.round(s.d)} km · ${esc(s.p)}</div></div>
-    <a class="btn ${i?"ghost":"primary"}" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.q)}">Directions</a></div>`).join("");
+    <div class="store"><div>${i?"":`<div class="tag">Your nearest store</div>`}<h4>${esc(s.n)}</h4>
+      <a class="ln" target="_blank" rel="noopener" href="${mapUrl(s)}">${PIN}<span>${esc(s.a)}</span></a>
+      ${s.ph?`<a class="ln tel" href="${phTel(s.ph)}" aria-label="Call ${esc(s.n)}">${PHONE}<span>${phNice(s.ph)}</span></a>`:""}
+      <div class="km">About ${s.d<1?1:Math.round(s.d)} km · ${esc(s.p)}</div></div>
+    <div class="acts"><a class="btn ${i?"ghost":"primary"}" target="_blank" rel="noopener" href="${mapUrl(s)}">${PIN}Directions</a>${s.ph?`<a class="btn ghost" href="${phTel(s.ph)}">${PHONE}Call</a>`:""}</div></div>`).join("");
   syncPicks(); $("#results").scrollIntoView({behavior:"smooth",block:"start"});
 }
 function showParish(name,lat,lng){
