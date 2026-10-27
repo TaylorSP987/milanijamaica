@@ -1136,7 +1136,7 @@ function renderStores(list,lat,lng,intro){
       <a class="ln" target="_blank" rel="noopener" href="${mapUrl(s)}">${PIN}<span>${esc(s.a)}</span></a>
       ${s.ph?`<a class="ln tel" href="${phTel(s.ph)}" aria-label="Call ${esc(s.n)}">${PHONE}<span>${phNice(s.ph)}</span></a>`:""}
       <div class="km">About ${s.d<1?1:Math.round(s.d)} km · ${esc(s.p)}</div></div>
-    <div class="acts"><a class="btn ${i?"ghost":"primary"}" target="_blank" rel="noopener" href="${mapUrl(s)}">${PIN}Directions</a>${s.ph?`<a class="btn ghost" href="${phTel(s.ph)}">${PHONE}Call</a>`:""}</div></div>`).join("");
+    <div class="acts"><a class="btn primary" target="_blank" rel="noopener" href="${mapUrl(s)}">${PIN}Directions</a>${s.ph?`<a class="btn ghost" href="${phTel(s.ph)}">${PHONE}Call</a>`:""}</div></div>`).join("");
   syncPicks(); $("#results").scrollIntoView({behavior:"smooth",block:"start"});
 }
 function showParish(name,lat,lng){
