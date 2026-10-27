@@ -796,8 +796,8 @@ const POWDER_PHOTOS = {"190":"powder-190.jpg?v=3","140":"powder-140.jpg?v=3","15
 const STORES = [
  {n:"Fontana Waterloo",a:"Waterloo Square, Waterloo Road, Kingston 10",p:"St. Andrew",lat:18.0138,lng:-76.7968,q:"Fontana Pharmacy Waterloo Kingston"},
  {n:"Fontana Barbican",a:"Barbican Square, Barbican Road, Kingston 8",p:"St. Andrew",lat:18.0352,lng:-76.7712,q:"Fontana Pharmacy Barbican Square Kingston"},
- {n:"Fontana Loshusan Plaza",a:"Loshusan Plaza, Barbican, Kingston 8",p:"St. Andrew",lat:18.0368,lng:-76.7744,q:"Loshusan Plaza Barbican Kingston pharmacy"},
- {n:"Fontana Sovereign Liguanea",a:"Sovereign Centre, 106 Hope Road, Kingston 6",p:"St. Andrew",lat:18.0186,lng:-76.7683,q:"Fontana Pharmacy Sovereign Centre Liguanea"},
+ {n:"Fontana Loshusan Plaza",last:1,a:"Loshusan Plaza, Barbican, Kingston 8",p:"St. Andrew",lat:18.0368,lng:-76.7744,q:"Loshusan Plaza Barbican Kingston pharmacy"},
+ {n:"Fontana Sovereign Liguanea",last:1,a:"Sovereign Centre, 106 Hope Road, Kingston 6",p:"St. Andrew",lat:18.0186,lng:-76.7683,q:"Fontana Pharmacy Sovereign Centre Liguanea"},
  {n:"Fontana Tropical Plaza",a:"Tropical Plaza, Half Way Tree, Kingston 10",p:"St. Andrew",lat:18.0104,lng:-76.7955,q:"Tropical Plaza Half Way Tree pharmacy"},
  {n:"Fontana Portmore",a:"Parkway Square, Braeton Parkway, Portmore",p:"St. Catherine",lat:17.9621,lng:-76.8866,q:"Fontana Pharmacy Parkway Square Portmore"},
  {n:"Fontana Sovereign Village",a:"Sovereign Village, Portmore",p:"St. Catherine",lat:17.9610,lng:-76.8838,q:"Sovereign Village Portmore pharmacy"},
@@ -1000,7 +1000,7 @@ const grp=p=>(p==="Kingston"||p==="St. Andrew")?"Kingston & St. Andrew":p;
 /* parishes with no store yet: the neighbouring parish people normally shop in */
 const FALLBACK={"Hanover":"St. James","Trelawny":"St. James","St. Mary":"St. Ann","Portland":"Kingston & St. Andrew","St. Thomas":"Kingston & St. Andrew"};
 function renderStores(list,lat,lng,intro){
-  const r=list.map(s=>({...s,d:km(lat,lng,s.lat,s.lng)})).sort((a,b)=>a.d-b.d);
+  const r=list.map(s=>({...s,d:km(lat,lng,s.lat,s.lng)})).sort((a,b)=>((a.last||0)-(b.last||0))||(a.d-b.d)); /* newest, smallest-stock stores go last */
   chosenStore=r[0];
   $("#results").innerHTML=`<p class="intro caps">${intro}</p>`+r.map((s,i)=>`
     <div class="store"><div>${i?"":`<div class="tag">Your nearest store</div>`}<h4>${esc(s.n)}</h4><div class="addr">${esc(s.a)}</div><div class="km">About ${s.d<1?1:Math.round(s.d)} km · ${esc(s.p)}</div></div>
