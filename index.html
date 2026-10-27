@@ -692,32 +692,34 @@ const COLORS = {
 const CATS = [
   ["powders","Powders","Baked, blurring and setting powders. Our spotlight right now."],
   ["face","Foundation & Concealer","Shades for every Jamaican skin tone."],
-  ["lips","Lipstick","Mattes, satins, stains and crayons."],
+  ["lips","Lipstick","Satins and mattes."],
   ["gloss","Gloss, Oils & Plumpers","Shine with a little extra."],
   ["liners","Lip Liners","Shape and define."],
-  ["cheeks","Blush, Bronzer & Glow","Baked classics and creamy cheek colour."],
-  ["brows","Brows","Pencils, pomades and tints."],
-  ["eyes","Eyeliner","Liquid, pencil and kohl."],
+  ["cheeks","Blush, Bronzer & Glow","Liquid blush, bronzer and glow."],
+  ["brows","Brows","Our best-selling pencil and tinted mousse."],
+  ["eyes","Eyeliner","Pencil and kohl."],
   ["prime","Primers & Setting Sprays","Prep it, set it, make it last in the heat."]
 ];
 
 /* products: cat, name, shades ("" = one size), badge */
+/* products Milani sells that we do not stock in Jamaica (kept here so photo numbers stay the same) */
+const NOT_STOCKED = ["Conceal + Perfect Cream To Powder", "Baked Highlighter", "Supercharged Brightening Undereye Tint", "Erase Base Blemish Control Primer", "Skin Quench Hydrating Primer", "Bright Side Illuminating Primer", "SPF BFF SPF 30 Primer", "Make It Last Matte Charcoal Setting Spray", "Make It Last Dewy Setting Spray", "Make It Last Sunscreen Setting Spray SPF 30", "Make It Last Microfine Mist Setting Spray", "Cheek Kiss Liquid Blush", "Cheek Kiss Cream Blush", "Cheek Kiss Cream Bronzer", "Rose Powder Blush", "Strobelight Instant Glow Highlighter", "Supercharged Cheek + Lip Multistick", "Stay Put Brow Color", "Stay Put Brow Sculpting Mechanical Pencil", "Weekend Brow Eyebrow Tint", "Stay Put Liquid Brow Wax", "The Clear Brow", "Stay Put Tank Liquid Eyeliner", "Stay Put Matte Eyeliner", "Stay Put Infinite Liner", "Color Fetish Matte Lipstick", "Color Fetish Balm Lipstick", "Color Fetish Hydrating Lip Stain", "Stay Put Matte Lip Crayon", "Stay Put Liquid Lip Longwear Lipstick", "Amore Satin Matte Lip Crème", "Keep It Full Nourishing Lip Plumper", "Keep It Full Maxxx Balmshell Plumping Balm", "Fruit Fetish Lip Balm", "Understatement Lipliner", "Color Statement Lipliner", "Easyliner Mechanical Lipliner", "Amore Matte Lip Crème"];
 const P = [
- ["powders","Baked Blurring Finishing Powder","140 Medium|150 Medium Tan|160 Tan|170 Tan Deep|180 Deep|190 Deep Rich","New"],
- ["powders","Conceal + Perfect Blur Out Powder","01 Translucent|02 Banana","Best seller"],
+ ["powders","Baked Blurring Finishing Powder","140 Medium|150 Medium Tan|160 Tan|170 Tan Deep|180 Deep|190 Deep Rich"],
+ ["powders","Conceal + Perfect Blur Out Powder","01 Translucent|02 Banana"],
  ["powders","Conceal + Perfect Shine-Proof Powder","04 Natural|05 Natural Beige|06 Beige"],
  ["powders","Conceal + Perfect Cream To Powder","Warm Beige|Sand Beige|Sand|Tan|Amber|Caramel Brown"],
  ["powders","Make It Last Mattifying Setting Powder",""],
- ["powders","Baked Bronzer","01 Amalfi Glow|02 Tuscan Tan|03 Capri Copper|04 Sicilian Sunset","New"],
- ["powders","Baked Blush","01 Dolce Pink|02 Rose D'oro|03 Berry Amore|05 Luminoso|16 Pink Panna Cotta|17 Sparkling Rosé|18 Ciao Bella|19 Granita Glow","New"],
- ["powders","Baked Highlighter","01 Dolce Perla|02 Champagne D'oro|03 Rosa Italiana|04 Bronze Splendore","New"],
+ ["powders","Baked Bronzer","01 Amalfi Glow|02 Tuscan Tan|03 Capri Copper|04 Sicilian Sunset"],
+ ["powders","Baked Blush","01 Dolce Pink|02 Rose D'oro|03 Berry Amore|05 Luminoso|16 Pink Panna Cotta|17 Sparkling Rosé|18 Ciao Bella|19 Granita Glow"],
+ ["powders","Baked Highlighter","01 Dolce Perla|02 Champagne D'oro|03 Rosa Italiana|04 Bronze Splendore"],
 
- ["face","Conceal + Perfect 2-In-1 Foundation + Concealer","04 Medium Beige|04A1 Golden Beige|04A2 Golden Vanilla|05A Natural Beige|05 Warm Beige|06 Sand Beige|06A Deep Beige|07 Sand|08 Light Tan|08A1 Rich Sand|08A Warm Sand|09A Natural Tan|09 Tan|10A Hazelnut|10 Golden Tan|10A1 Caramel|11 Amber|11A Nutmeg|12 Spiced Almond|13 Chestnut|13A Espresso|13A1 Cool Espresso|14 Golden Toffee|14A Cocoa|14A1 Mocha|15 Mahogany|16 Cool Cocoa|17 Warm Chestnut|18 Truffle","Best seller"],
+ ["face","Conceal + Perfect 2-In-1 Foundation + Concealer","04 Medium Beige|04A1 Golden Beige|04A2 Golden Vanilla|05A Natural Beige|05 Warm Beige|06 Sand Beige|06A Deep Beige|07 Sand|08 Light Tan|08A1 Rich Sand|08A Warm Sand|09A Natural Tan|09 Tan|10A Hazelnut|10 Golden Tan|10A1 Caramel|11 Amber|11A Nutmeg|12 Spiced Almond|13 Chestnut|13A Espresso|13A1 Cool Espresso|14 Golden Toffee|14A Cocoa|14A1 Mocha|15 Mahogany|16 Cool Cocoa|17 Warm Chestnut|18 Truffle"],
  ["face","Conceal + Perfect Blur Out Skin Tint","06|07|08|09|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25"],
  ["face","Conceal + Perfect Longwear Concealer","130 Light Beige|135 Medium Beige|140 Pure Beige|145 Warm Beige|150 Natural Sand|155 Cool Sand|160 Warm Tan|165 Deep Tan|170 Warm Almond|175 Warm Chestnut|180 Cool Toffee|185 Cool Cocoa"],
  ["face","Supercharged Brightening Undereye Tint","110 Pink|120 Peach|130 Deep Peach"],
 
- ["prime","Conceal + Perfect Blur Out Smoothing Primer","","Best seller"],
+ ["prime","Conceal + Perfect Blur Out Smoothing Primer",""],
  ["prime","No Pore Zone Mattifying Primer",""],
  ["prime","Erase Base Blemish Control Primer",""],
  ["prime","Skin Quench Hydrating Primer",""],
@@ -727,8 +729,8 @@ const P = [
  ["prime","Make It Last Original Setting Spray",""],
  ["prime","Make It Last Dewy Setting Spray",""],
  ["prime","Make It Last Sunscreen Setting Spray SPF 30",""],
- ["prime","Make It Last Microfine Mist Setting Spray","","New"],
- ["prime","Make It Last Moisture Boost Setting Spray","","New"],
+ ["prime","Make It Last Microfine Mist Setting Spray",""],
+ ["prime","Make It Last Moisture Boost Setting Spray",""],
 
  ["cheeks","Cheek Kiss Liquid Blush","110 Nude Flush|120 Pink Flirt|130 Cheeky Coral|140 Rose Romance|150 Wine Glow|160 Berry Smooch"],
  ["cheeks","Cheek Kiss Blush Glow","110 Luminoso|120 Pink Cava|130 Dolce Pink|140 Rosalia|150 Caffe|160 Canela"],
@@ -740,21 +742,21 @@ const P = [
  ["cheeks","Strobelight Instant Glow Highlighter","01 Afterglow|02 Dayglow|03 Sunglow"],
  ["cheeks","Supercharged Cheek + Lip Multistick","110 Peach Thrill|120 Rose Recharge|130 Spice Jolt|140 Berry Bolt"],
 
- ["brows","Stay Put Brow Color","01 Soft Brown|02 Natural Taupe|03 Medium Brown|04 Brunette|05 Dark Brown","Best seller"],
+ ["brows","Stay Put Brow Color","01 Soft Brown|02 Natural Taupe|03 Medium Brown|04 Brunette|05 Dark Brown"],
  ["brows","Stay Put Brow Sculpting Mechanical Pencil","03 Medium Brown|04 Dark Brown|05 Espresso"],
- ["brows","Easy Brow Pencil","02 Dark Brown|03 Natural Taupe"],
+ ["brows","Easy Brow Pencil","02 Dark Brown|03 Natural Taupe","Best seller"],
  ["brows","Stay Put Tinted Brow Mousse","100 Taupe|110 Soft Brown|120 Medium Brown|130 Dark Brown|140 Brown Black"],
  ["brows","Weekend Brow Eyebrow Tint","120 Soft Brown|130 Medium Brown|140 Espresso"],
  ["brows","Stay Put Liquid Brow Wax",""],
  ["brows","The Clear Brow",""],
 
- ["eyes","Stay Put Eyeliner","01 After Dark|02 Semi-Sweet","Best seller"],
+ ["eyes","Stay Put Eyeliner","01 After Dark|02 Semi-Sweet"],
  ["eyes","Stay Put Tank Liquid Eyeliner","110 Black|120 Brown|130 White"],
  ["eyes","Stay Put Matte Eyeliner","110 Black Matte|150 Black Waterproof"],
  ["eyes","Stay Put Infinite Liner",""],
  ["eyes","Supreme Kohl Kajal Eyeliner","01 Blackest Black"],
 
- ["lips","Color Fetish Matte Lipstick","310 Peony|320 Petal|330 Blossom|340 Poppy|350 Fleur|360 Dahlia|370 Flushed|380 Smitten|390 Red Flag|410 Pleasure|420 Tease|430 Secret|440 Passion|450 Desire|460 Sensual","Best seller"],
+ ["lips","Color Fetish Matte Lipstick","310 Peony|320 Petal|330 Blossom|340 Poppy|350 Fleur|360 Dahlia|370 Flushed|380 Smitten|390 Red Flag|410 Pleasure|420 Tease|430 Secret|440 Passion|450 Desire|460 Sensual"],
  ["lips","Color Fetish Balm Lipstick","110 Lustful|120 Fantasy|130 Lingerie|140 Crave|150 Roleplay|160 Voyeur|170 Kink|180 Seduce|190 Covet|200 Bitten|210 Nylon|220 Tied Up"],
  ["lips","Color Fetish Hydrating Lip Stain","110 Mauve Mentality|120 Mahogany Mami|130 Rose Rising|140 Pink About It|150 That's Fire|160 Bitten Berry"],
  ["lips","Color Statement Lipstick","03 Orange-Gina|05 Red Label|07 Best Red|09 Pink Frost|11 Fruit Punch|17 Plumrose|25 Naturally Chic|26 Nude Creme|27 Dulce Caramelo|29 Teddy Bare|31 Bronze Beauty|42 Rose Femme|43 Pretty Natural|84 Honey Rose|89 Naked"],
@@ -763,7 +765,7 @@ const P = [
  ["lips","Stay Put Liquid Lip Longwear Lipstick","110 Glow Up|120 10/10|130 Iconic|140 The Moment|150 Snatched|160 Vibe|170 Unhinged|180 Main Character|190 We Stan|200 That Girl|210 Red Flag|220 Go Off|230 Villain Era"],
  ["lips","Amore Satin Matte Lip Crème","01 Lavish|02 Luxe|07 Classic|09 Velvet"],
 
- ["gloss","Fruit Fetish Lip Oils","110 Passion Fruit Coconut|120 Strawberry Melon|130 Raspberry Peach|140 Cherry Lime|150 Luminoso|160 Lychee Nectar|170 Honey Fig|180 Cranberry Currant|190 Blackberry Agave|200 Coco Cacao|210 Black Cherry Vanilla|220 Candy Apple|240 Hot Cocoa|250 Mulled Wine","Best seller"],
+ ["gloss","Fruit Fetish Lip Oils","110 Passion Fruit Coconut|120 Strawberry Melon|130 Raspberry Peach|140 Cherry Lime|150 Luminoso|160 Lychee Nectar|170 Honey Fig|180 Cranberry Currant|190 Blackberry Agave|200 Coco Cacao|210 Black Cherry Vanilla|220 Candy Apple|240 Hot Cocoa|250 Mulled Wine"],
  ["gloss","Keep It Full Nourishing Lip Plumper","01 Champagne|02 Nude Shimmer|03 Prismatic Peach|04 Luminoso|08 Soft Rose|09 Moonlight|10 Gold Dust|11 Tropical Shine|12 Sparkling Pink|13 Rosewood|15 Natural Luster"],
  ["gloss","Keep It Full Maxxx Lip Plumper","110 Little Secret|120 First Kiss|130 Situation-Ship|140 Single-Ish|150 Superlike|160 Swipe Right|180 Left On Read|190 Bae|210 In The DMs|220 No Strings"],
  ["gloss","Keep It Full Glossy Plumping Balm","110 Ballet|120 Ribbon|130 Puff|140 Moi|150 Hazel|160 Honey|170 Spice|180 Jam|190 Bisou|200 Chili|210 Lana|220 Truffle"],
@@ -774,9 +776,9 @@ const P = [
  ["liners","Color Statement Lipliner","02 True Red|03 Nude|04 All Natural|05 Haute Pink|08 Fuchsia|09 Spice|12 Bordeaux|13 Pretty Pink"],
  ["liners","Keep It Full Plumping Lip Liner","110 Go All Pout|120 Over The Top|130 Hot Tamale|140 Twice As Spice|150 Hotshot|160 Fire Sign"],
  ["liners","Easyliner Mechanical Lipliner","01 Sugar Plum|Most Natural"],
- ["lips","Color Fetish Satin Lipstick","110 Reverie|120 Spritz|130 Lola|140 Sorbet|150 Contessa|160 Muse|170 Cashmere|180 Fable|190 Soho|200 Original|210 Villa|220 Silhouette","Best seller"],
+ ["lips","Color Fetish Satin Lipstick","110 Reverie|120 Spritz|130 Lola|140 Sorbet|150 Contessa|160 Muse|170 Cashmere|180 Fable|190 Soho|200 Original|210 Villa|220 Silhouette"],
  ["lips","Amore Matte Lip Crème","11 Precious"]
-].map((r,i)=>({id:"p"+i,cat:r[0],name:r[1],shades:S(r[2]),badge:r[3]||""}));
+].map((r,i)=>({id:"p"+i,cat:r[0],name:r[1],shades:S(r[2]),badge:r[3]||""})).filter(p=>!NOT_STOCKED.includes(p.name));
 
 /* skin-tone fallback colours (used when a swatch photo cannot load), light to deep */
 const TONE = {};
