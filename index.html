@@ -386,7 +386,7 @@ footer .stock{display:inline-block;margin-top:22px;font-size:12px;letter-spacing
   <h3 id="tipT">Added to My Picks</h3>
   <p class="tipsub" id="tipShade"></p>
   <ol class="howto mini">
-   <li><span class="n">1</span><div><b>Add all the shades you like</b><small>They wait for you in My Picks at the top.</small></div></li>
+   <li><span class="n">1</span><div><b>Add all the items you like</b><small>They wait for you in My Picks at the top.</small></div></li>
    <li><span class="n">2</span><div><b>Save your list as a picture</b><small>Open My Picks and tap Save my list to my photos.</small></div></li>
    <li><span class="n">3</span><div><b>Take it to the store</b><small>Show the picture at the counter. The store will find your shades and give you prices.</small></div></li>
   </ol>
@@ -1064,7 +1064,7 @@ function addPick(p,shade){
   if(!picks.some(k=>k.name===p.name&&k.shade===shade)) picks.push({name:p.name,shade});
   store.set(picks); syncPicks();
   let seen=false; try{ seen=localStorage.getItem("mj_tip")==="1"; }catch(e){}
-  if(seen){ toast(`Added ${shade||p.name}`); return; }
+  if(seen){ toast("✓ Added to My Picks"); return; }
   try{ localStorage.setItem("mj_tip","1"); }catch(e){}
   $("#tipShade").textContent=shade?`${p.name} · ${shade}`:p.name;
   $("#tip").classList.add("open");
