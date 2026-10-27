@@ -245,6 +245,42 @@ footer .fine{color:var(--dim);font-size:12px;margin-top:10px;letter-spacing:.06e
 .toast{position:fixed;left:50%;top:86px;transform:translate(-50%,-20px);opacity:0;z-index:70;background:#111;border:1px solid rgba(255,255,255,.25);padding:11px 20px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;transition:all .25s;pointer-events:none;white-space:nowrap}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 
+
+/* contact */
+.contactlink{grid-column:2;justify-self:center;display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);padding:8px 6px}
+.contactlink svg{width:14px;height:14px;fill:#dcbb6a}
+.contactlink:hover{color:#fff}
+@media(max-width:560px){.contactlink{flex-direction:column;gap:3px;font-size:8.5px;letter-spacing:.14em;padding:4px 2px}.contactlink svg{width:16px;height:16px}}
+.cpage{position:fixed;inset:0;z-index:90;background:#060606;overflow-y:auto;display:none;-webkit-overflow-scrolling:touch}
+.cpage.open{display:block}
+.cpage .in{max-width:520px;margin:0 auto;padding:22px 20px calc(40px + env(safe-area-inset-bottom))}
+.cpage .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px}
+.cpage .back{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);display:inline-flex;align-items:center;gap:8px}
+.cpage h2{font-family:var(--brandfont);font-weight:600;font-size:clamp(30px,8vw,42px);letter-spacing:.06em;line-height:1.05;margin:8px 0 12px}
+.cpage .who{background:#0d0d0d;border:1px solid rgba(220,187,106,.35);border-radius:14px;padding:14px 16px;color:#d8d2c8;font-size:14px;line-height:1.5}
+.cpage .who b{color:#e9d9a6;font-weight:500}
+.cpage .callbox{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:22px 0 8px;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.cpage .callbox .caps{color:var(--dim)}
+.cpage .callbox .num{font-size:22px;color:#fff;letter-spacing:.04em;margin-top:4px}
+.cpage .callbox .btn{padding:14px 20px}
+.cpage .callbox .btn svg{width:13px;height:13px;fill:currentColor}
+.cpage h3{font-family:var(--display);font-weight:400;font-size:26px;margin:26px 0 4px}
+.cpage .sub{color:var(--muted);font-size:14px;margin-bottom:18px}
+.fld{display:block;margin-bottom:14px}
+.fld span{display:block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.fld span i{font-style:normal;color:var(--dim);letter-spacing:.06em;text-transform:none}
+.fld input,.fld textarea,.fld select{width:100%;background:#0f0f0f;border:1px solid rgba(255,255,255,.16);border-radius:10px;color:#fff;font:inherit;font-size:16px;padding:14px;outline:none;-webkit-appearance:none;appearance:none}
+.fld textarea{min-height:130px;resize:vertical}
+.fld input:focus,.fld textarea:focus,.fld select:focus{border-color:#dcbb6a}
+.fld select{background-image:linear-gradient(45deg,transparent 50%,#dcbb6a 50%),linear-gradient(135deg,#dcbb6a 50%,transparent 50%);background-position:calc(100% - 20px) 50%,calc(100% - 15px) 50%;background-size:5px 5px;background-repeat:no-repeat}
+.ferr{color:#f0a48c;font-size:13px;min-height:18px;margin:4px 0 10px}
+.fdone{display:none;text-align:center;padding:30px 0}
+.fdone .tick{width:62px;height:62px;border-radius:50%;margin:0 auto 16px;display:grid;place-items:center;background:var(--foil);color:#000;font-size:28px}
+.fdone h3{margin-top:0}
+.fdone p{color:var(--muted)}
+.cpage.sent form{display:none}.cpage.sent .fdone{display:block}
+.hp{position:absolute;left:-9999px}
+footer .stock{display:inline-block;margin-top:22px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#e9d9a6;border-bottom:1px solid rgba(220,187,106,.45);padding-bottom:3px}
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s ease}
 .reveal.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.foil,.marquee .track{animation:none}.reveal{opacity:1;transform:none}}
@@ -256,7 +292,7 @@ footer .fine{color:var(--dim);font-size:12px;margin-top:10px;letter-spacing:.06e
 <header>
   <div class="wrap bar">
     <a class="navlink" href="#where"><svg viewBox="0 0 24 24" fill="#000"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><span class="full">Nearest stores</span><span class="short">Nearest stores</span></a>
-    <span class="brand" aria-hidden="true"></span>
+    <button class="contactlink" data-contact aria-label="Contact Milani Cosmetics Jamaica"><svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm9 7.2L4.4 7h15.2L12 12.2zM4 8.6V17h16V8.6l-8 5.4-8-5.4z"/></svg><span>Contact</span></button>
     <button class="bagbtn" id="openPicks" aria-label="Open my picks"><span class="lbl">My Picks</span><span class="n" id="pickCount">0</span></button>
   </div>
 </header>
@@ -321,6 +357,7 @@ footer .fine{color:var(--dim);font-size:12px;margin-top:10px;letter-spacing:.06e
   <div class="big foil">MILANI</div>
   <div class="big2">COSMETICS · <span class="foil">JAMAICA</span></div>
   <div class="fine">Official Milani distributor in Jamaica · Cruelty free</div>
+  <button class="stock" data-contact>Want to sell Milani in your store? Contact us</button>
 </footer>
 
 <div class="float" id="float"><span class="l" id="floatTxt">1 pick saved</span><button id="floatGo">Find a store</button></div>
@@ -332,6 +369,30 @@ footer .fine{color:var(--dim);font-size:12px;margin-top:10px;letter-spacing:.06e
   <div class="foot" id="sheetFoot"></div>
 </div>
 <div class="toast" id="toast"></div>
+<div class="cpage" id="contact" role="dialog" aria-modal="true" aria-labelledby="cTitle">
+ <div class="in">
+  <div class="top"><button class="back" data-cclose>&larr; Back to shop</button><button class="x" data-cclose aria-label="Close">×</button></div>
+  <div class="caps" style="color:var(--dim)">Contact us</div>
+  <h2 class="foil" id="cTitle">Milani Cosmetics Jamaica</h2>
+  <div class="who">You are contacting <b>Milani Cosmetics Jamaica</b>, the official Milani distributor in Jamaica. This is not a store. To check if a store has your shade, call that store from the store list.</div>
+  <div class="callbox"><div><div class="caps">Call Milani Cosmetics Jamaica</div><div class="num">(876) 381-9444</div></div>
+   <a class="btn primary" href="tel:+18763819444"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>Call</a></div>
+  <form id="cform" novalidate>
+   <h3>Or send us a message</h3>
+   <p class="sub">It goes straight to Milani Cosmetics Jamaica. Store owners who would like to sell Milani are very welcome.</p>
+   <label class="fld"><span>Your name</span><input name="name" autocomplete="name" required></label>
+   <label class="fld"><span>Phone number <i>(phone or email)</i></span><input name="phone" type="tel" autocomplete="tel" inputmode="tel"></label>
+   <label class="fld"><span>Email</span><input name="email" type="email" autocomplete="email" inputmode="email"></label>
+   <label class="fld"><span>I am</span><select name="type"><option>A customer</option><option>A store that would like to sell Milani</option><option>Something else</option></select></label>
+   <label class="fld"><span>Your message</span><textarea name="message" required></textarea></label>
+   <input class="hp" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+   <div class="ferr" id="ferr" role="alert"></div>
+   <button class="btn primary block" type="submit" id="fsend">Send to Milani Cosmetics Jamaica</button>
+  </form>
+  <div class="fdone"><div class="tick">✓</div><h3>Message sent</h3><p id="fdoneTxt">Milani Cosmetics Jamaica has your message and will get back to you soon.</p><div style="margin-top:22px"><button class="btn ghost" data-cclose>Back to shop</button></div></div>
+ </div>
+</div>
+
 <div class="shot" id="shot" role="dialog" aria-modal="true">
   <div class="shotbox">
     <img id="shotImg" alt="Your Milani picks">
@@ -1098,8 +1159,39 @@ document.addEventListener("click",e=>{
   else if(t.id==="shotSave"){ saveShot(); }
   else if(t.id==="shotClose"){ $("#shot").classList.remove("open"); }
 });
+
+/* ---------- contact ---------- */
+const CONTACT_EMAIL="bodyaccentsja@yahoo.com";
+function openContact(){ closeSheet(); $("#contact").classList.remove("sent"); $("#contact").classList.add("open"); document.body.style.overflow="hidden"; if(location.hash!=="#contact") history.pushState(null,"","#contact"); }
+function closeContact(){ $("#contact").classList.remove("open"); document.body.style.overflow=""; if(location.hash==="#contact") history.back(); }
+window.addEventListener("popstate",()=>{ if(location.hash!=="#contact"){ $("#contact").classList.remove("open"); document.body.style.overflow=""; } });
+if(location.hash==="#contact") setTimeout(openContact,0);
+document.addEventListener("click",e=>{ const t=e.target.closest("[data-contact],[data-cclose]"); if(!t) return; e.preventDefault(); t.hasAttribute("data-contact")?openContact():closeContact(); });
+$("#cform").addEventListener("submit",async e=>{
+  e.preventDefault(); const f=e.target, v=n=>f[n].value.trim(), err=$("#ferr");
+  if(!v("name")){ err.textContent="Please add your name."; f.name.focus(); return; }
+  if(!v("phone")&&!v("email")){ err.textContent="Please add a phone number or email so we can reply."; f.phone.focus(); return; }
+  if(v("email")&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v("email"))){ err.textContent="That email doesn't look right."; f.email.focus(); return; }
+  if(!v("message")){ err.textContent="Please write your message."; f.message.focus(); return; }
+  if(v("_honey")) return;
+  err.textContent=""; const b=$("#fsend"); b.disabled=true; b.textContent="Sending…";
+  const body={name:v("name"),phone:v("phone")||"Not given",email:v("email")||"Not given","I am":f.type.value,message:v("message"),
+    _subject:"New website message: "+v("name")+" ("+f.type.value+")",_template:"table",_captcha:"false"};
+  if(v("email")) body._replyto=v("email");
+  try{
+    const r=await fetch("https://formsubmit.co/ajax/"+CONTACT_EMAIL,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(body)});
+    const j=await r.json().catch(()=>({}));
+    if(!r.ok||String(j.success)==="false") throw new Error(j.message||"fail");
+    $("#fdoneTxt").textContent=`Thank you, ${v("name").split(" ")[0]}. Milani Cosmetics Jamaica has your message and will get back to you soon.`;
+    $("#contact").classList.add("sent"); f.reset(); $("#contact").scrollTo(0,0);
+  }catch(x){
+    const mail="mailto:"+CONTACT_EMAIL+"?subject="+encodeURIComponent("Message from "+v("name"))+"&body="+encodeURIComponent(v("message")+"\n\n"+v("name")+"\n"+v("phone")+"\n"+v("email"));
+    err.innerHTML=`Sorry, that didn't send. Please call <a href="tel:+18763819444" style="color:#e9d9a6">(876) 381-9444</a> or <a href="${mail}" style="color:#e9d9a6">email us instead</a>.`;
+  }
+  b.disabled=false; b.textContent="Send to Milani Cosmetics Jamaica";
+});
 $("#scrim").addEventListener("click",closeSheet);
-document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeSheet(); });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape"){ closeSheet(); if($("#contact").classList.contains("open")) closeContact(); } });
 
 renderCatalog(); paintFeature(); syncPicks();
 const chipIO=new IntersectionObserver(es=>es.forEach(en=>{ if(en.isIntersecting){ document.querySelectorAll(".chip").forEach(c=>c.classList.toggle("on",c.dataset.chip===en.target.id)); const on=document.querySelector(`.chip[data-chip="${en.target.id}"]`); if(on){ const row=on.parentNode; row.scrollTo({left:on.offsetLeft-row.clientWidth/2+on.clientWidth/2,behavior:"smooth"}); } }}),{rootMargin:"-45% 0px -50% 0px"});
