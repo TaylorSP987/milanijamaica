@@ -879,7 +879,7 @@ const P = [
 
  ["brows","Stay Put Brow Color","01 Soft Brown|02 Natural Taupe|03 Medium Brown|04 Brunette|05 Dark Brown"],
  ["brows","Stay Put Brow Sculpting Mechanical Pencil","03 Medium Brown|04 Dark Brown|05 Espresso"],
- ["brows","Easy Brow Pencil","02 Dark Brown|03 Natural Taupe","Best seller"],
+ ["brows","Easy Brow Pencil","02 Dark Brown","Best seller"],
  ["brows","Stay Put Tinted Brow Mousse","100 Taupe|110 Soft Brown|120 Medium Brown|130 Dark Brown|140 Brown Black"],
  ["brows","Weekend Brow Eyebrow Tint","120 Soft Brown|130 Medium Brown|140 Espresso"],
  ["brows","Stay Put Liquid Brow Wax",""],
@@ -997,7 +997,7 @@ function renderCatalog(){
   }).join("");
 }
 const LIP_LOOKS=[["p48","07 Best Red","d"],["p63","140 Sorbet","m"],["p48","11 Fruit Punch","d"],["p49","67 Matte Confident","m"],["p63","200 Original","d"],["p48","84 Honey Rose","m"],["p49","72 Matte Kiss","d"],["p48","29 Teddy Bare","m"],["p63","170 Cashmere","d"],["p49","61 Matte Naked","m"]];
-const BANDS={brows:[["look-brows-1.jpg","p35","02 Dark Brown","Easy Brow Pencil"],["look-brows-3.jpg","p35","03 Natural Taupe","Easy Brow Pencil"]],
+const BANDS={brows:[["look-brows-1.jpg","p35","02 Dark Brown","Easy Brow Pencil"]],
   eyes:[["look-eyes-1.jpg","p40","01 After Dark","Stay Put Eyeliner"],["look-eyes-2.jpg","p44","01 Blackest Black","Supreme Kohl Kajal"],["look-eyes-3.jpg","p40","02 Semi-Sweet","Stay Put Eyeliner"]]};
 function looksHTML(cat){
   if(cat==="lips"){
@@ -1005,7 +1005,7 @@ function looksHTML(cat){
       return `<button class="ltile" data-open="${id}" data-shade="${esc(sh)}" data-tone="${tone}" aria-label="${esc(p.name)} in ${esc(sh)}" style="background-image:url(lips-${id}-${tone}.jpg);background-size:100% ${p.shades.length*100}%;background-position:0 ${i/(p.shades.length-1)*100}%"><span><small>${esc(p.name.replace(/ Lipstick$/,""))}</small>${esc(sh)}</span></button>`; }).join("");
     return `<div class="looks reveal"><div class="lbl caps"><b>See them on</b><span>Swipe &rarr;</span></div><div class="lrow">${tiles}</div></div>`;
   }
-  if(BANDS[cat]) return `<div class="looks reveal"><div class="lbl caps"><b>See it on</b><span>Swipe &rarr;</span></div><div class="lrow">${BANDS[cat].map(([img,id,sh,nm])=>`<button class="ltile tall" data-open="${id}" data-shade="${esc(sh)}" aria-label="${esc(nm)} in ${esc(sh)}" style="background-image:url(${img}?v=3);background-size:cover;background-position:center"><span><small>${esc(nm)}</small>${esc(sh)}</span></button>`).join("")}</div></div>`;
+  if(BANDS[cat]) return `<div class="looks reveal"><div class="lbl caps"><b>See it on</b>${BANDS[cat].length>1?"<span>Swipe &rarr;</span>":""}</div><div class="lrow">${BANDS[cat].map(([img,id,sh,nm])=>`<button class="ltile tall" data-open="${id}" data-shade="${esc(sh)}" aria-label="${esc(nm)} in ${esc(sh)}" style="background-image:url(${img}?v=3);background-size:cover;background-position:center"><span><small>${esc(nm)}</small>${esc(sh)}</span></button>`).join("")}</div></div>`;
   return "";
 }
 function visual(p){
@@ -1020,7 +1020,7 @@ function cardHTML(p){
   return `<button class="card" data-open="${p.id}">
     <div class="vis">${p.badge?`<span class="badge">${p.badge}</span>`:""}${visual(p)}</div>
     <div class="txt"><h3>${esc(p.name)}</h3>
-      <div class="count">${n>1? n+" shades" : "One shade"}${fin(p)}</div>
+      <div class="count">${n>1? n+" shades" : (n===1? esc(p.shades[0]) : "One shade")}${fin(p)}</div>
       <span class="go">${n>1?"Choose your shade":"Add to my picks"}</span></div>
   </button>`;
 }
