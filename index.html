@@ -372,7 +372,7 @@ footer .stock{display:inline-block;margin-top:22px;font-size:12px;letter-spacing
   <button class="stock" data-contact>Want to sell Milani in your store? Contact us</button>
 </footer>
 
-<div class="float" id="float"><span class="l" id="floatTxt">1 pick saved</span><button id="floatGo">Save my list</button></div>
+<div class="float" id="float"><span class="l" id="floatTxt">1 pick saved</span><button id="floatGo">Find a store</button></div>
 
 <div class="scrim" id="scrim"></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true">
@@ -392,6 +392,15 @@ footer .stock{display:inline-block;margin-top:22px;font-size:12px;letter-spacing
    <li><span class="n">3</span><div><b>Take it to the store</b><small>Show the picture at the counter. The store will find your shades and give you prices.</small></div></li>
   </ol>
   <button class="btn primary block" id="tipOk">Got it, keep shopping</button>
+ </div>
+</div>
+<div class="tip" id="saveAsk" role="dialog" aria-modal="true" aria-labelledby="saT">
+ <div class="tipbox">
+  <div class="tick">✓</div>
+  <h3 id="saT">Your list is ready</h3>
+  <p class="tipsub" id="saStore"></p>
+  <p style="color:var(--muted);font-size:14px;margin:0 0 16px">Save your picks as a picture and show it at the beauty counter. They will find your shades and give you prices.</p>
+  <div style="display:grid;gap:8px"><button class="btn primary block" id="saYes">Save my image</button><button class="btn ghost block" id="saNo">Not now</button></div>
  </div>
 </div>
 <div class="cpage" id="contact" role="dialog" aria-modal="true" aria-labelledby="cTitle">
@@ -1068,7 +1077,10 @@ function addPick(p,shade){
   $("#tipShade").textContent=shade?`${p.name} · ${shade}`:p.name;
   $("#tip").classList.add("open");
 }
-document.addEventListener("click",e=>{ if(e.target.id==="tipOk"||e.target.id==="tip") $("#tip").classList.remove("open"); });
+document.addEventListener("click",e=>{ const id=e.target.id;
+  if(id==="tipOk"||id==="tip") $("#tip").classList.remove("open");
+  if(id==="saNo"||id==="saveAsk") $("#saveAsk").classList.remove("open");
+  if(id==="saYes"){ $("#saveAsk").classList.remove("open"); makeListImage(); } });
 function syncPicks(){
   $("#pickCount").textContent=picks.length;
   $("#floatTxt").textContent=`${picks.length} pick${picks.length===1?"":"s"} saved`;
@@ -1157,6 +1169,7 @@ function renderStores(list,lat,lng,intro){
       <div class="km">About ${s.d<1?1:Math.round(s.d)} km · ${esc(grp(s.p))}</div></div>
     <div class="acts"><a class="btn primary" target="_blank" rel="noopener" href="${mapUrl(s)}">${PIN}Directions</a>${s.ph?`<a class="btn ghost" href="${phTel(s.ph)}">${PHONE}Call</a>`:""}</div></div>`).join("");
   syncPicks(); $("#results").scrollIntoView({behavior:"smooth",block:"start"});
+  if(picks.length&&!window.__asked){ window.__asked=true; setTimeout(()=>{ $("#saStore").textContent="Nearest store: "+chosenStore.n; $("#saveAsk").classList.add("open"); },3500); }
 }
 function showParish(name,lat,lng){
   let g=grp(name), list=STORES.filter(s=>grp(s.p)===g), intro=`Stores in ${esc(g)}`;
@@ -1182,8 +1195,7 @@ document.addEventListener("click",e=>{
   else if(t.dataset.rm!==undefined){ picks.splice(+t.dataset.rm,1); store.set(picks); syncPicks(); paintPicks(); }
   else if(t.hasAttribute("data-close")) closeSheet();
   else if(t.id==="openPicks") openPicks();
-  else if(t.id==="floatGo") openPicks();
-  else if(t.id==="toStores"){ closeSheet(); $("#where").scrollIntoView({behavior:"smooth"}); }
+  else if(t.id==="toStores"||t.id==="floatGo"){ closeSheet(); $("#where").scrollIntoView({behavior:"smooth"}); }
   else if(t.dataset.parish){ document.querySelectorAll(".parish").forEach(b=>b.classList.toggle("on",b===t)); const p=PARISHES.find(x=>x[0]===t.dataset.parish); showParish(p[0],p[1],p[2]); }
   else if(t.id==="useLoc"){
     if(!navigator.geolocation){ toast("Pick your parish instead"); return; }
