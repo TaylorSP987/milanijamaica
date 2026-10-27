@@ -371,7 +371,7 @@ footer .stock{display:inline-block;margin-top:22px;font-size:12px;letter-spacing
   <button class="stock" data-contact>Want to sell Milani in your store? Contact us</button>
 </footer>
 
-<div class="float" id="float"><span class="l" id="floatTxt">1 pick saved</span><button id="floatGo">Find a store</button></div>
+<div class="float" id="float"><span class="l" id="floatTxt">1 pick saved</span><button id="floatGo">Save my list</button></div>
 
 <div class="scrim" id="scrim"></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true">
@@ -917,28 +917,28 @@ const POWDER_PHOTOS = {"190":"powder-190.jpg?v=4","140":"powder-140.jpg?v=3","15
 
 /* Fontana Pharmacy branches */
 const STORES = [
- {n:"Fontana Waterloo",a:"Waterloo Square, 12 West Kings House Road, Kingston 10",p:"St. Andrew",lat:18.0222,lng:-76.7922,ph:"876-619-7479",q:"Fontana Pharmacy Waterloo Kingston"},
- {n:"Fontana Barbican",a:"34 East Kings House Road, Barbican, Kingston 8",p:"St. Andrew",lat:18.0307,lng:-76.7752,ph:"876-946-2630",q:"Fontana Pharmacy Barbican Square Kingston"},
- {n:"Fontana Loshusan Plaza",last:1,a:"Loshusan Shopping Centre, 29 East Kings House Road, Kingston 8",p:"St. Andrew",lat:18.0298,lng:-76.7775,ph:"876-978-2013",q:"Loshusan Plaza Barbican Kingston pharmacy"},
- {n:"Fontana Sovereign Liguanea",last:1,a:"Sovereign Centre, 106 Hope Road, Kingston 6",p:"St. Andrew",lat:18.021,lng:-76.7694,ph:"876-978-3495",q:"Fontana Pharmacy Sovereign Centre Liguanea"},
- {n:"Fontana Tropical Plaza",a:"Shop 23, Tropical Plaza, 10 Half Way Tree Road, Kingston 10",p:"St. Andrew",lat:18.0146,lng:-76.7967,ph:"876-920-1539",q:"Tropical Plaza Half Way Tree pharmacy"},
- {n:"Fontana Portmore",a:"Parkway Square, 7 Braeton Parkway, Portmore",p:"St. Catherine",lat:17.9597,lng:-76.901,ph:"876-740-0055",q:"Fontana Pharmacy Parkway Square Portmore"},
- {n:"Fontana Sovereign Village",a:"Lot 5-6 Braeton Parkway, Portmore",p:"St. Catherine",lat:17.9607,lng:-76.8985,ph:"876-612-7919",q:"Sovereign Village Portmore pharmacy"},
- {n:"Fontana Montego Bay",a:"Fairview Town Centre, Alice Eldemire Drive, Montego Bay",p:"St. James",lat:18.4554,lng:-77.9256,ph:"876-952-3866",q:"Fontana Pharmacy Fairview Montego Bay"},
- {n:"Fontana Mandeville",a:"Manchester Shopping Centre, Caledonia Road, Mandeville",p:"Manchester",lat:18.0458,lng:-77.5081,ph:"876-962-3129",q:"Fontana Pharmacy Mandeville"},
- {n:"Fontana Ocho Rios",a:"Eight Rivers Town Centre, Ocho Rios",p:"St. Ann",lat:18.4061,lng:-77.1038,ph:"876-974-8889",q:"Fontana Pharmacy Ocho Rios"},
- {n:"Fontana Savanna-la-Mar",a:"Beckford Plaza, 33 Beckford Street, Savanna-la-Mar",p:"Westmoreland",lat:18.2248,lng:-78.1332,ph:"876-955-9119",q:"Fontana Pharmacy Savanna-la-Mar"},
+ {n:"Fontana Waterloo",a:"Waterloo Square, 12 West Kings House Road, Kingston 10",p:"St. Andrew",lat:18.0222,lng:-76.7922,ph:"876-619-7479",q:"Fontana Waterloo Square, Waterloo Square, 12 West Kings House Road, Kingston 10",pid:"ChIJU-ItXt4_244RJoFvhRdrZ18"},
+ {n:"Fontana Barbican",a:"34 East Kings House Road, Barbican, Kingston 8",p:"St. Andrew",lat:18.0307,lng:-76.7752,ph:"876-946-2630",q:"Fontana Pharmacy Barbican, 34 East Kings House Road, Barbican, Kingston 8",pid:"ChIJjTjAPvc-244Rvi5u-OkgVb0"},
+ {n:"Fontana Loshusan Plaza",last:1,a:"Loshusan Shopping Centre, 29 East Kings House Road, Kingston 8",p:"St. Andrew",lat:18.0298,lng:-76.7775,ph:"876-978-2013",q:"Fontana Pharmacy Barbican Centre, Loshusan Shopping Centre, 29 East Kings House Road, Kingston 8",pid:"ChIJ4YjxJjk_244RTFw_e52tsU8"},
+ {n:"Fontana Sovereign Liguanea",last:1,a:"Sovereign Centre, 106 Hope Road, Kingston 6",p:"St. Andrew",lat:18.021,lng:-76.7694,ph:"876-978-3495",q:"Fontana Pharmacy Sovereign Centre, Sovereign Centre, 106 Hope Road, Kingston 6",pid:"ChIJiwPAwPw-244RcC7Vxe-kUl4"},
+ {n:"Fontana Tropical Plaza",a:"Shop 23, Tropical Plaza, 10 Half Way Tree Road, Kingston 10",p:"St. Andrew",lat:18.0146,lng:-76.7967,ph:"876-920-1539",q:"Fontana Pharmacy Tropical Plaza, Shop 23, Tropical Plaza, 10 Half Way Tree Road, Kingston 10",pid:"ChIJxWWOi7M_244RCwStArBA0qU"},
+ {n:"Fontana Portmore",a:"Parkway Square, 7 Braeton Parkway, Portmore",p:"St. Catherine",lat:17.9597,lng:-76.901,ph:"876-740-0055",q:"Fontana Pharmacy Portmore Parkway, Parkway Square, 7 Braeton Parkway, Portmore",pid:"ChIJz_6FN6pr244RNUtGMUTzTtI"},
+ {n:"Fontana Sovereign Village",a:"Lot 5-6 Braeton Parkway, Portmore",p:"St. Catherine",lat:17.9607,lng:-76.8985,ph:"876-612-7919",q:"Fontana Pharmacy Sovereign Village, Lot 5-6 Braeton Parkway, Portmore",pid:"ChIJ7--nJkFr244RdKJ-gyzLP2U"},
+ {n:"Fontana Montego Bay",a:"Fairview Town Centre, Alice Eldemire Drive, Montego Bay",p:"St. James",lat:18.4554,lng:-77.9256,ph:"876-952-3866",q:"Fontana Pharmacy Montego Bay, Fairview Town Centre, Alice Eldemire Drive, Montego Bay",pid:"ChIJH356Q5sq2o4R8YnztZr9bSg"},
+ {n:"Fontana Mandeville",a:"Manchester Shopping Centre, Caledonia Road, Mandeville",p:"Manchester",lat:18.0458,lng:-77.5081,ph:"876-962-3129",q:"Fontana Mandeville, Manchester Shopping Centre, Caledonia Road, Mandeville",pid:"ChIJ-4BMpkm-244RW-bdMJlAbTQ"},
+ {n:"Fontana Ocho Rios",a:"Eight Rivers Town Centre, Ocho Rios",p:"St. Ann",lat:18.4061,lng:-77.1038,ph:"876-974-8889",q:"Fontana Pharmacy Ocho Rios, Eight Rivers Town Centre, Ocho Rios",pid:"ChIJ72fMtHj-2o4RL74pHmofhdw"},
+ {n:"Fontana Savanna-la-Mar",a:"Beckford Plaza, 33 Beckford Street, Savanna-la-Mar",p:"Westmoreland",lat:18.2248,lng:-78.1332,ph:"876-955-9119",q:"Fontana Savanna la Mar, Beckford Plaza, 33 Beckford Street, Savanna-la-Mar",pid:"ChIJ8aY6nOpv2Y4RKJofSqL_8UY"},
  {n:"R&R Cosmetics",a:"Junction, St. Elizabeth",p:"St. Elizabeth",lat:17.9054,lng:-77.6091,q:"R&R Cosmetics Junction St. Elizabeth Jamaica"},
- {n:"La Vega Pharmacy",a:"Shop 9, St. Jago Shopping Centre, 2 Burke Road, Spanish Town",p:"St. Catherine",lat:17.9916,lng:-76.9498,q:"La Vega Pharmacy St. Jago Shopping Centre Spanish Town"},
- {n:"Liguanea Drug & Garden Centre",a:"134 Old Hope Road, Liguanea, Kingston 6",p:"St. Andrew",lat:18.0195,lng:-76.7666,ph:"876-977-0066",q:"Liguanea Drug & Garden Centre 134 Old Hope Road Kingston"},
- {n:"Young's Pharmacy",a:"29 Main Street, May Pen",p:"Clarendon",lat:17.9668,lng:-77.2418,ph:"876-986-2407",q:"Young's Pharmacy 29 Main Street May Pen"},
- {n:"Manor Park Pharmacy",a:"Lower Manor Park Plaza, 186 Constant Spring Road, Kingston 8",p:"St. Andrew",lat:18.0508,lng:-76.7928,ph:"876-924-1424",q:"Manor Park Pharmacy 186 Constant Spring Road Kingston"},
- {n:"Chesterville Pharmacy",a:"Winchester Road, Half Way Tree, Kingston 10",p:"St. Andrew",lat:18.0111,lng:-76.7946,ph:"876-929-0195",q:"Chesterville Pharmacy Winchester Road Kingston"},
- {n:"Vivian's Beauty Supplies",a:"Shop 69, Portmore Pines Plaza, Portmore",p:"St. Catherine",lat:17.9638,lng:-76.8934,ph:"876-896-6634",q:"Vivians Beauty Supplies Portmore Pines Plaza"},
- {n:"Benson's Pharmacy Spanish Town",a:"34 Wellington Street, Spanish Town",p:"St. Catherine",lat:17.9941,lng:-76.9581,ph:"876-671-9323",q:"Bensons Pharmacy 34 Wellington Street Spanish Town"},
- {n:"Benson's Pharmacy Old Harbour",a:"11 Main Street, Old Harbour",p:"St. Catherine",lat:17.9382,lng:-77.1149,ph:"876-745-2149",q:"Benson's Pharmacy 11 Main Street Old Harbour"},
- {n:"EHUD Pharmacy",a:"Gateway Plaza, 7 West Street, Old Harbour",p:"St. Catherine",lat:17.9387,lng:-77.1134,ph:"876-983-2663",q:"EHUD Pharmacy Gateway Plaza Old Harbour"},
- {n:"Cherry's Hair & More",a:"1 Balmoral Avenue, 65 Half Way Tree Road, Kingston 10",p:"St. Andrew",lat:18.0058,lng:-76.7951,ph:"876-929-0860",q:"Cherrys Hair & More Half Way Tree Road Kingston"}
+ {n:"La Vega Pharmacy",a:"Shop 9, St. Jago Shopping Centre, 2 Burke Road, Spanish Town",p:"St. Catherine",lat:17.9916,lng:-76.9498,q:"La Vega Pharmacy, Shop 9, St. Jago Shopping Centre, 2 Burke Road, Spanish Town",pid:"ChIJRWnFRwAT244R6Kh0KNKqCOk"},
+ {n:"Liguanea Drug & Garden Centre",a:"134 Old Hope Road, Liguanea, Kingston 6",p:"St. Andrew",lat:18.0195,lng:-76.7666,ph:"876-977-0066",q:"Liguanea Drug & Garden Centre, 134 Old Hope Road, Liguanea, Kingston 6",pid:"ChIJBWEp4OI-244RYR8kOYkwBo4"},
+ {n:"Young's Pharmacy",a:"29 Main Street, May Pen",p:"Clarendon",lat:17.9668,lng:-77.2418,ph:"876-986-2407",q:"Young's Pharmacy, 29 Main Street, May Pen",pid:"ChIJL5Hp6Aef244R_sMnIkbczw0"},
+ {n:"Manor Park Pharmacy",a:"Lower Manor Park Plaza, 186 Constant Spring Road, Kingston 8",p:"St. Andrew",lat:18.0508,lng:-76.7928,ph:"876-924-1424",q:"Manor Park Pharmacy, Lower Manor Park Plaza, 186 Constant Spring Road, Kingston 8",pid:"ChIJo6Qoyjg_244RUYMjBw57Fs4"},
+ {n:"Chesterville Pharmacy",a:"Winchester Road, Half Way Tree, Kingston 10",p:"St. Andrew",lat:18.0111,lng:-76.7946,ph:"876-929-0195",q:"Chesterville Pharmacy, Winchester Road, Half Way Tree, Kingston 10",pid:"ChIJASI-BeI_244RttEq5cN5B1g"},
+ {n:"Vivian's Beauty Supplies",a:"Shop 69, Portmore Pines Plaza, Portmore",p:"St. Catherine",lat:17.9638,lng:-76.8934,ph:"876-896-6634",q:"Vivians beauty supplies & variety store, Shop 69, Portmore Pines Plaza, Portmore",pid:"ChIJh12zzYNr244RcQdNrSSiTQ0"},
+ {n:"Benson's Pharmacy Spanish Town",a:"34 Wellington Street, Spanish Town",p:"St. Catherine",lat:17.9941,lng:-76.9581,ph:"876-671-9323",q:"Bensons Pharmacy Spanish Town, 34 Wellington Street, Spanish Town",pid:"ChIJI6shTDwT244RJgBd9JDN9R8"},
+ {n:"Benson's Pharmacy Old Harbour",a:"11 Main Street, Old Harbour",p:"St. Catherine",lat:17.9382,lng:-77.1149,ph:"876-745-2149",q:"Benson's Pharmacy Old Harbour, 11 Main Street, Old Harbour",pid:"ChIJU84IJGV0244R0S250rMU-tg"},
+ {n:"EHUD Pharmacy",a:"Gateway Plaza, 7 West Street, Old Harbour",p:"St. Catherine",lat:17.9387,lng:-77.1134,ph:"876-983-2663",q:"EHUD Pharmacy Old Harbour, Gateway Plaza, 7 West Street, Old Harbour",pid:"ChIJA8_n1Hp0244R4VbplNGUlHg"},
+ {n:"Cherry's Hair & More",a:"1 Balmoral Avenue, 65 Half Way Tree Road, Kingston 10",p:"St. Andrew",lat:18.0058,lng:-76.7951,ph:"876-929-0860",q:"Cherrys Hair & More, 1 Balmoral Avenue, 65 Half Way Tree Road, Kingston 10",pid:"ChIJY4O8vIE_244RGrj2_3zrv2c"}
 ];
 
 /* parish reference points (capital towns) */
@@ -1152,7 +1152,7 @@ const PIN='<svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13
 const PHONE='<svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>';
 const phNice=p=>p?"("+p.slice(0,3)+") "+p.slice(4):"";
 const phTel=p=>"tel:+1"+p.replace(/\D/g,"");
-const mapUrl=s=>"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(s.q);
+const mapUrl=s=>"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(s.q)+(s.pid?"&query_place_id="+s.pid:"");
 /* Fontana first, then other stockists, smallest-stock branches always last */
 const rank=s=>s.last?2:(/^Fontana/.test(s.n)?0:1);
 function renderStores(list,lat,lng,intro){
@@ -1190,7 +1190,8 @@ document.addEventListener("click",e=>{
   else if(t.dataset.rm!==undefined){ picks.splice(+t.dataset.rm,1); store.set(picks); syncPicks(); paintPicks(); }
   else if(t.hasAttribute("data-close")) closeSheet();
   else if(t.id==="openPicks") openPicks();
-  else if(t.id==="toStores"||t.id==="floatGo"){ closeSheet(); $("#where").scrollIntoView({behavior:"smooth"}); }
+  else if(t.id==="floatGo") openPicks();
+  else if(t.id==="toStores"){ closeSheet(); $("#where").scrollIntoView({behavior:"smooth"}); }
   else if(t.dataset.parish){ document.querySelectorAll(".parish").forEach(b=>b.classList.toggle("on",b===t)); const p=PARISHES.find(x=>x[0]===t.dataset.parish); showParish(p[0],p[1],p[2]); }
   else if(t.id==="useLoc"){
     if(!navigator.geolocation){ toast("Pick your parish instead"); return; }
