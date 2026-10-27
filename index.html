@@ -281,6 +281,20 @@ footer .fine{color:var(--dim);font-size:12px;margin-top:10px;letter-spacing:.06e
 .cpage.sent form{display:none}.cpage.sent .fdone{display:block}
 .hp{position:absolute;left:-9999px}
 footer .stock{display:inline-block;margin-top:22px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#e9d9a6;border-bottom:1px solid rgba(220,187,106,.45);padding-bottom:3px}
+/* worn-on strips */
+.looks{position:relative;z-index:1;margin:0 0 28px}
+@media(min-width:700px){.looks .lbl,.lrow{padding-left:0;padding-right:0}}
+.looks .lbl{padding:0 16px;display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;color:var(--dim)}
+.looks .lbl b{font-family:var(--display);font-weight:400;font-style:italic;font-size:20px;color:#e9d9a6;letter-spacing:0;text-transform:none}
+.lrow{display:flex;gap:10px;padding-left:16px;padding-right:16px;scroll-padding-left:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.lrow::-webkit-scrollbar{display:none}
+.ltile{position:relative;flex:0 0 min(68vw,300px);aspect-ratio:3/2;border-radius:14px;overflow:hidden;scroll-snap-align:start;background-repeat:no-repeat;background-color:#111;text-align:left}
+.ltile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.78))}
+.ltile span{position:absolute;left:14px;right:14px;bottom:11px;z-index:1;color:#fff;font-size:13px;font-weight:500;line-height:1.25}
+.ltile small{display:block;color:#e9d9a6;font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:400;margin-bottom:2px}
+.ltile.tall{flex-basis:min(58vw,250px);aspect-ratio:3/4}
+.lband{position:relative;z-index:1;margin:0 0 28px;border-radius:14px;overflow:hidden;background:#111}
+.lband img{display:block;width:100%;height:auto}
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s ease}
 .reveal.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.foil,.marquee .track{animation:none}.reveal{opacity:1;transform:none}}
@@ -955,10 +969,22 @@ function renderCatalog(){
       <div class="water" aria-hidden="true">${ci%2?"JAMAICA":"MILANI"}</div>
       <div class="head reveal"><div class="caps num">${String(ci+1).padStart(2,"0")} / ${String(CATS.length).padStart(2,"0")}</div>
         <h2 class="foil">${title}</h2><p class="sub">${sub}</p><div class="rule"></div></div>
-      ${featured}
+      ${featured}${looksHTML(id)}
       <div class="grid reveal">${rest.map(cardHTML).join("")}</div>
     </section>`;
   }).join("");
+}
+const LIP_LOOKS=[["p48","07 Best Red","d"],["p63","170 Cashmere","m"],["p48","11 Fruit Punch","d"],["p49","61 Matte Naked","m"],["p63","200 Original","d"],["p48","29 Teddy Bare","m"],["p49","72 Matte Kiss","d"],["p63","140 Sorbet","m"],["p48","84 Honey Rose","d"],["p49","67 Matte Confident","m"]];
+const BANDS={brows:[["look-brows-1.jpg","p35","02 Dark Brown","Easy Brow Pencil"],["look-brows-2.jpg","p35","02 Dark Brown","Easy Brow Pencil"],["look-brows-3.jpg","p35","03 Natural Taupe","Easy Brow Pencil"]],
+  eyes:[["look-eyes-1.jpg","p40","01 After Dark","Stay Put Eyeliner"],["look-eyes-2.jpg","p44","01 Blackest Black","Supreme Kohl Kajal"],["look-eyes-3.jpg","p40","02 Semi-Sweet","Stay Put Eyeliner"]]};
+function looksHTML(cat){
+  if(cat==="lips"){
+    const tiles=LIP_LOOKS.map(([id,sh,tone])=>{ const p=P.find(x=>x.id===id); if(!p) return ""; const i=p.shades.indexOf(sh); if(i<0) return "";
+      return `<button class="ltile" data-open="${id}" data-shade="${esc(sh)}" data-tone="${tone}" aria-label="${esc(p.name)} in ${esc(sh)}" style="background-image:url(lips-${id}-${tone}.jpg);background-size:100% ${p.shades.length*100}%;background-position:0 ${i/(p.shades.length-1)*100}%"><span><small>${esc(p.name.replace(/ Lipstick$/,""))}</small>${esc(sh)}</span></button>`; }).join("");
+    return `<div class="looks reveal"><div class="lbl caps"><b>See them on</b><span>Swipe &rarr;</span></div><div class="lrow">${tiles}</div></div>`;
+  }
+  if(BANDS[cat]) return `<div class="looks reveal"><div class="lbl caps"><b>See it on</b><span>Swipe &rarr;</span></div><div class="lrow">${BANDS[cat].map(([img,id,sh,nm])=>`<button class="ltile tall" data-open="${id}" data-shade="${esc(sh)}" aria-label="${esc(nm)} in ${esc(sh)}" style="background-image:url(${img}?v=1);background-size:cover;background-position:center"><span><small>${esc(nm)}</small>${esc(sh)}</span></button>`).join("")}</div></div>`;
+  return "";
 }
 function visual(p){
   if(PHOTOS[p.id]) return `<img loading="lazy" src="${PHOTOS[p.id]}" alt="${esc(p.name)}">`;
@@ -1002,10 +1028,10 @@ function paintFeature(){
 let sheetProd=null, sheetShade=null;
 function openSheet(){ $("#scrim").classList.add("open"); $("#sheet").classList.add("open"); document.body.style.overflow="hidden"; }
 function closeSheet(){ $("#scrim").classList.remove("open"); $("#sheet").classList.remove("open"); document.body.style.overflow=""; }
-function openProduct(id){
+function openProduct(id,shade){
   const p=P.find(x=>x.id===id); if(!p) return;
   if(p.shades.length<=1){ addPick(p,p.shades[0]||""); return; }
-  sheetProd=p; sheetShade=(["powders","face"].includes(p.cat)&&p.shades.length>4)?p.shades[Math.floor(p.shades.length*0.6)]:p.shades[0]; $("#sheetTitle").textContent=p.name; paintProductSheet(); openSheet();
+  sheetProd=p; sheetShade=(["powders","face"].includes(p.cat)&&p.shades.length>4)?p.shades[Math.floor(p.shades.length*0.6)]:p.shades[0]; if(shade&&p.shades.includes(shade)) sheetShade=shade; $("#sheetTitle").textContent=p.name; paintProductSheet(); openSheet();
 }
 let lipTone="d";
 function paintProductSheet(){
@@ -1137,7 +1163,7 @@ $("#parishes").innerHTML=PARISHES.map(p=>`<button class="parish" data-parish="${
 /* ---------- events ---------- */
 document.addEventListener("click",e=>{
   const t=e.target.closest("button,a"); if(!t) return;
-  if(t.dataset.open) openProduct(t.dataset.open);
+  if(t.dataset.open){ if(t.dataset.tone) lipTone=t.dataset.tone; openProduct(t.dataset.open,t.dataset.shade); }
   else if(t.dataset.feat){ featShade=t.dataset.feat; paintFeature(); }
   else if(t.id==="featAdd") addPick(P[0],featShade);
   else if(t.dataset.tone){ lipTone=t.dataset.tone; paintProductSheet(); }
