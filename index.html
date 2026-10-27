@@ -295,6 +295,10 @@ footer .stock{display:inline-block;margin-top:22px;font-size:12px;letter-spacing
 .ltile.tall{flex-basis:min(58vw,250px);aspect-ratio:3/4}
 .lband{position:relative;z-index:1;margin:0 0 28px;border-radius:14px;overflow:hidden;background:#111}
 .lband img{display:block;width:100%;height:auto}
+.steps3{display:flex;justify-content:center;gap:clamp(10px,4vw,34px);padding:14px 12px;border-bottom:1px solid var(--line);font-size:12px;letter-spacing:.04em;color:#d8d2c8;white-space:nowrap}
+.steps3 span{display:inline-flex;align-items:center;gap:7px}
+.steps3 i{font-style:normal;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(180deg,#f3e2a8,#dcbb6a 45%,#b48b3c);color:#0a0a0a;font-weight:600;font-size:11px}
+@media(max-width:380px){.steps3{font-size:11px;gap:8px}}
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s ease}
 .reveal.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.foil,.marquee .track{animation:none}.reveal{opacity:1;transform:none}}
@@ -317,14 +321,9 @@ footer .stock{display:inline-block;margin-top:22px;font-size:12px;letter-spacing
   <div class="lock2">COSMETICS</div>
   <div class="lock3"><svg class="flag" viewBox="0 0 12 6" role="img" aria-label="Jamaican flag"><rect width="12" height="6" fill="#009b3a"/><path d="M0 0L6 3L0 6ZM12 0L6 3L12 6Z" fill="#000"/><path d="M0 0L12 6M12 0L0 6" stroke="#fed100" stroke-width="1"/></svg><span>JAMAICA</span><svg class="flag" viewBox="0 0 12 6" role="img" aria-label="Jamaican flag"><rect width="12" height="6" fill="#009b3a"/><path d="M0 0L6 3L0 6ZM12 0L6 3L12 6Z" fill="#000"/><path d="M0 0L12 6M12 0L0 6" stroke="#fed100" stroke-width="1"/></svg></div>
   <figure><img src="hero.jpg?v=4" alt="Five women holding Milani Baked Blurring Finishing Powder, shades 140 to 180, now available in Jamaica at Fontana" onerror="this.parentNode.remove()"></figure>
-  <div class="copy">
-    <p>Every Milani shade we carry in Jamaica. Tap the ones you love, save your list as a photo, and show it at your nearest store.</p>
-    <div class="ctas">
-      <a class="btn primary" href="#powders">Search Shades</a>
-      <a class="btn ghost" href="#where">Find a store</a>
-    </div>
-  </div>
 </div>
+
+<div class="steps3" aria-label="How it works"><span><i>1</i>Tap a shade</span><span><i>2</i>Save your list</span><span><i>3</i>Show it in store</span></div>
 
 <div class="marquee" aria-hidden="true"><div class="track" id="marquee"></div></div>
 
