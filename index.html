@@ -892,7 +892,7 @@ TONE["01 Translucent|Conceal + Perfect Blur Out Powder"]="rgb(240,236,230)";
 TONE["02 Banana|Conceal + Perfect Blur Out Powder"]="rgb(240,214,150)";
 
 /* AI model photos for the featured powder (add files to /images to show them) */
-const POWDER_PHOTOS = {"190":"powder-190.jpg?v=3","140":"powder-140.jpg?v=3","150":"powder-150.jpg?v=3","160":"powder-160.jpg?v=3","170":"powder-170.jpg?v=3","180":"powder-180.jpg?v=3"};
+const POWDER_PHOTOS = {"190":"powder-190.jpg?v=4","140":"powder-140.jpg?v=3","150":"powder-150.jpg?v=3","160":"powder-160.jpg?v=3","170":"powder-170.jpg?v=3","180":"powder-180.jpg?v=3"};
 
 /* Fontana Pharmacy branches */
 const STORES = [
@@ -972,7 +972,7 @@ function looksHTML(cat){
       return `<button class="ltile" data-open="${id}" data-shade="${esc(sh)}" data-tone="${tone}" aria-label="${esc(p.name)} in ${esc(sh)}" style="background-image:url(lips-${id}-${tone}.jpg);background-size:100% ${p.shades.length*100}%;background-position:0 ${i/(p.shades.length-1)*100}%"><span><small>${esc(p.name.replace(/ Lipstick$/,""))}</small>${esc(sh)}</span></button>`; }).join("");
     return `<div class="looks reveal"><div class="lbl caps"><b>See them on</b><span>Swipe &rarr;</span></div><div class="lrow">${tiles}</div></div>`;
   }
-  if(BANDS[cat]) return `<div class="looks reveal"><div class="lbl caps"><b>See it on</b><span>Swipe &rarr;</span></div><div class="lrow">${BANDS[cat].map(([img,id,sh,nm])=>`<button class="ltile tall" data-open="${id}" data-shade="${esc(sh)}" aria-label="${esc(nm)} in ${esc(sh)}" style="background-image:url(${img}?v=1);background-size:cover;background-position:center"><span><small>${esc(nm)}</small>${esc(sh)}</span></button>`).join("")}</div></div>`;
+  if(BANDS[cat]) return `<div class="looks reveal"><div class="lbl caps"><b>See it on</b><span>Swipe &rarr;</span></div><div class="lrow">${BANDS[cat].map(([img,id,sh,nm])=>`<button class="ltile tall" data-open="${id}" data-shade="${esc(sh)}" aria-label="${esc(nm)} in ${esc(sh)}" style="background-image:url(${img}?v=2);background-size:cover;background-position:center"><span><small>${esc(nm)}</small>${esc(sh)}</span></button>`).join("")}</div></div>`;
   return "";
 }
 function visual(p){
@@ -1126,8 +1126,10 @@ const PHONE='<svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6
 const phNice=p=>p?"("+p.slice(0,3)+") "+p.slice(4):"";
 const phTel=p=>"tel:+1"+p.replace(/\D/g,"");
 const mapUrl=s=>"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(s.q);
+/* Fontana first, then other stockists, smallest-stock branches always last */
+const rank=s=>s.last?2:(/^Fontana/.test(s.n)?0:1);
 function renderStores(list,lat,lng,intro){
-  const r=list.map(s=>({...s,d:km(lat,lng,s.lat,s.lng)})).sort((a,b)=>((a.last||0)-(b.last||0))||(a.d-b.d)); /* newest, smallest-stock stores go last */
+  const r=list.map(s=>({...s,d:km(lat,lng,s.lat,s.lng)})).sort((a,b)=>rank(a)-rank(b)||(a.d-b.d)); /* newest, smallest-stock stores go last */
   chosenStore=r[0];
   $("#results").innerHTML=`<p class="intro caps">${intro}</p>`+r.map((s,i)=>`
     <div class="store"><div>${i?"":`<div class="tag">Your nearest store</div>`}<h4>${esc(s.n)}</h4>
