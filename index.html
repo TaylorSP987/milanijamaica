@@ -972,7 +972,7 @@ function looksHTML(cat){
       return `<button class="ltile" data-open="${id}" data-shade="${esc(sh)}" data-tone="${tone}" aria-label="${esc(p.name)} in ${esc(sh)}" style="background-image:url(lips-${id}-${tone}.jpg);background-size:100% ${p.shades.length*100}%;background-position:0 ${i/(p.shades.length-1)*100}%"><span><small>${esc(p.name.replace(/ Lipstick$/,""))}</small>${esc(sh)}</span></button>`; }).join("");
     return `<div class="looks reveal"><div class="lbl caps"><b>See them on</b><span>Swipe &rarr;</span></div><div class="lrow">${tiles}</div></div>`;
   }
-  if(BANDS[cat]) return `<div class="looks reveal"><div class="lbl caps"><b>See it on</b><span>Swipe &rarr;</span></div><div class="lrow">${BANDS[cat].map(([img,id,sh,nm])=>`<button class="ltile tall" data-open="${id}" data-shade="${esc(sh)}" aria-label="${esc(nm)} in ${esc(sh)}" style="background-image:url(${img}?v=2);background-size:cover;background-position:center"><span><small>${esc(nm)}</small>${esc(sh)}</span></button>`).join("")}</div></div>`;
+  if(BANDS[cat]) return `<div class="looks reveal"><div class="lbl caps"><b>See it on</b><span>Swipe &rarr;</span></div><div class="lrow">${BANDS[cat].map(([img,id,sh,nm])=>`<button class="ltile tall" data-open="${id}" data-shade="${esc(sh)}" aria-label="${esc(nm)} in ${esc(sh)}" style="background-image:url(${img}?v=3);background-size:cover;background-position:center"><span><small>${esc(nm)}</small>${esc(sh)}</span></button>`).join("")}</div></div>`;
   return "";
 }
 function visual(p){
