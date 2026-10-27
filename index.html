@@ -241,7 +241,8 @@ footer .fine{color:var(--dim);font-size:12px;margin-top:10px;letter-spacing:.06e
 .shotbox{max-width:440px;width:100%;max-height:100%;overflow:auto;text-align:center}
 .shotbox img{width:100%;border-radius:10px;box-shadow:0 0 0 1px rgba(220,187,106,.4);-webkit-touch-callout:default}
 .shothint{color:var(--dim);font-size:12px;margin:10px 0 0}
-.shotbtns{display:grid;gap:8px}
+.shotbtns{display:grid;gap:8px;margin-top:14px}
+#shotSave{letter-spacing:.12em;font-size:12px;font-weight:600;padding:18px 12px}
 .toast{position:fixed;left:50%;top:86px;transform:translate(-50%,-20px);opacity:0;z-index:70;background:#111;border:1px solid rgba(255,255,255,.25);padding:11px 20px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;transition:all .25s;pointer-events:none;white-space:nowrap}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 
@@ -420,9 +421,7 @@ footer .stock{display:inline-block;margin-top:22px;font-size:12px;letter-spacing
 <div class="shot" id="shot" role="dialog" aria-modal="true">
   <div class="shotbox">
     <img id="shotImg" alt="Your Milani picks">
-    <ol class="howto mini" id="shotSteps"></ol>
-    <div class="shotbtns"><button class="btn primary" id="shotSave">Save to my photos</button><button class="btn ghost" id="shotClose">Close</button></div>
-    <p class="shothint" id="shotHint"></p>
+    <div class="shotbtns"><button class="btn primary" id="shotSave">Save my image &amp; show at counter</button><button class="btn ghost" id="shotClose">Close</button></div>
   </div>
 </div>
 
@@ -1124,13 +1123,6 @@ async function makeListImage(){
   x.fillStyle="rgba(220,187,106,.8)"; x.font="400 22px Jost, Arial, sans-serif"; x.fillText("Show this picture at the beauty counter",W/2,H-40);
   try{ shotBlob=await new Promise(res=>c.toBlob(res,"image/png")); $("#shotImg").src=URL.createObjectURL(shotBlob); }
   catch(e){ shotBlob=null; $("#shotImg").src=c.toDataURL("image/png"); }
-  const ios=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
-  const share=!!(shotBlob&&navigator.canShare&&navigator.canShare({files:[new File([shotBlob],"x.png",{type:"image/png"})]}));
-  const st=ios?[["Tap Save to my photos","The gold button below."],["Tap Save Image","Your list goes straight into Photos."],["Show it at the counter","Open Photos in store and show the staff."]]
-    : share?[["Tap Save to my photos","The gold button below."],["Choose Photos, Gallery or Save","Whichever your phone shows you."],["Show it at the counter","Open your gallery in store and show the staff."]]
-    : [["Tap Save to my photos","The gold button below."],["Find it in your Downloads or Gallery","It is called my-milani-picks."],["Show it at the counter","Open it in store and show the staff."]];
-  $("#shotSteps").innerHTML=st.map((s,i)=>`<li><span class="n">${i+1}</span><div><b>${s[0]}</b><small>${s[1]}</small></div></li>`).join("");
-  $("#shotHint").textContent=ios?"Or press and hold the picture and choose Save to Photos.":"Or press and hold the picture and choose Download image.";
   $("#shot").classList.add("open");
 }
 async function saveShot(){
