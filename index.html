@@ -299,6 +299,14 @@ footer .stock{display:inline-block;margin-top:22px;font-size:12px;letter-spacing
 .steps3 span{display:inline-flex;align-items:center;gap:7px}
 .steps3 i{font-style:normal;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(180deg,#f3e2a8,#dcbb6a 45%,#b48b3c);color:#0a0a0a;font-weight:600;font-size:11px}
 @media(max-width:380px){.steps3{font-size:11px;gap:8px}}
+.tip{position:fixed;inset:0;z-index:85;background:rgba(0,0,0,.72);display:none;align-items:center;justify-content:center;padding:18px}
+.tip.open{display:flex}
+.tipbox{width:100%;max-width:420px;background:#0d0d0d;border:1px solid rgba(220,187,106,.4);border-radius:18px;padding:24px 18px 18px;text-align:center;animation:tipin .28s ease}
+@keyframes tipin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.tipbox .tick{width:46px;height:46px;border-radius:50%;margin:0 auto 10px;display:grid;place-items:center;background:var(--foil);color:#000;font-size:22px}
+.tipbox h3{font-family:var(--display);font-weight:400;font-size:26px}
+.tipsub{color:#e9d9a6;font-size:14px;margin:2px 0 14px}
+.tipbox .howto{text-align:left;margin-bottom:14px}
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s ease}
 .reveal.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.foil,.marquee .track{animation:none}.reveal{opacity:1;transform:none}}
@@ -372,6 +380,19 @@ footer .stock{display:inline-block;margin-top:22px;font-size:12px;letter-spacing
   <div class="foot" id="sheetFoot"></div>
 </div>
 <div class="toast" id="toast"></div>
+<div class="tip" id="tip" role="dialog" aria-modal="true" aria-labelledby="tipT">
+ <div class="tipbox">
+  <div class="tick">✓</div>
+  <h3 id="tipT">Added to My Picks</h3>
+  <p class="tipsub" id="tipShade"></p>
+  <ol class="howto mini">
+   <li><span class="n">1</span><div><b>Add all the shades you like</b><small>They wait for you in My Picks at the top.</small></div></li>
+   <li><span class="n">2</span><div><b>Save your list as a picture</b><small>Open My Picks and tap Save my list to my photos.</small></div></li>
+   <li><span class="n">3</span><div><b>Take it to the store</b><small>Show the picture at the counter. The store will find your shades and give you prices.</small></div></li>
+  </ol>
+  <button class="btn primary block" id="tipOk">Got it, keep shopping</button>
+ </div>
+</div>
 <div class="cpage" id="contact" role="dialog" aria-modal="true" aria-labelledby="cTitle">
  <div class="in">
   <div class="top"><button class="back" data-cclose>&larr; Back to shop</button><button class="x" data-cclose aria-label="Close">×</button></div>
@@ -1041,8 +1062,14 @@ function paintPicks(){
 let nearWhere=false, chosenStore=null;
 function addPick(p,shade){
   if(!picks.some(k=>k.name===p.name&&k.shade===shade)) picks.push({name:p.name,shade});
-  store.set(picks); syncPicks(); toast(`Added ${shade||p.name}`);
+  store.set(picks); syncPicks();
+  let seen=false; try{ seen=localStorage.getItem("mj_tip")==="1"; }catch(e){}
+  if(seen){ toast(`Added ${shade||p.name}`); return; }
+  try{ localStorage.setItem("mj_tip","1"); }catch(e){}
+  $("#tipShade").textContent=shade?`${p.name} · ${shade}`:p.name;
+  $("#tip").classList.add("open");
 }
+document.addEventListener("click",e=>{ if(e.target.id==="tipOk"||e.target.id==="tip") $("#tip").classList.remove("open"); });
 function syncPicks(){
   $("#pickCount").textContent=picks.length;
   $("#floatTxt").textContent=`${picks.length} pick${picks.length===1?"":"s"} saved`;
