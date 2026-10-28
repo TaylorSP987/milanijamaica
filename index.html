@@ -316,6 +316,13 @@ footer .stock{display:inline-flex;align-items:center;gap:8px;margin-top:24px;fon
 .reveal.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.foil,.marquee .track{animation:none}.reveal{opacity:1;transform:none}}
 </style>
+<!-- Meta Pixel: Milani Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','4230199223783985');fbq('track','PageView');
+function px(ev,params,custom){try{fbq(custom?'trackCustom':'track',ev,params||{});}catch(e){}}
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=4230199223783985&ev=PageView&noscript=1"/></noscript>
 </head>
 <body>
 
@@ -1054,7 +1061,7 @@ function closeSheet(){ $("#scrim").classList.remove("open"); $("#sheet").classLi
 function openProduct(id,shade){
   const p=P.find(x=>x.id===id); if(!p) return;
   if(p.shades.length<=1){ addPick(p,p.shades[0]||""); return; }
-  sheetProd=p; sheetShade=(["powders","face"].includes(p.cat)&&p.shades.length>4)?p.shades[Math.floor(p.shades.length*0.6)]:p.shades[0]; if(shade&&p.shades.includes(shade)) sheetShade=shade; $("#sheetTitle").textContent=p.name; paintProductSheet(); openSheet();
+  px("ViewContent",{content_name:p.name,content_category:p.cat,content_type:"product"}); sheetProd=p; sheetShade=(["powders","face"].includes(p.cat)&&p.shades.length>4)?p.shades[Math.floor(p.shades.length*0.6)]:p.shades[0]; if(shade&&p.shades.includes(shade)) sheetShade=shade; $("#sheetTitle").textContent=p.name; paintProductSheet(); openSheet();
 }
 let lipTone="d";
 function paintProductSheet(){
@@ -1074,6 +1081,7 @@ function paintPicks(){
 /* ---------- picks ---------- */
 let nearWhere=false, chosenStore=null;
 function addPick(p,shade){
+  px("AddToCart",{content_name:p.name+(shade?" - "+shade:""),content_category:p.cat,content_type:"product"});
   if(!picks.some(k=>k.name===p.name&&k.shade===shade)) picks.push({name:p.name,shade});
   store.set(picks); syncPicks();
   let seen=false; try{ seen=localStorage.getItem("mj_tip")==="1"; }catch(e){}
@@ -1085,7 +1093,7 @@ function addPick(p,shade){
 document.addEventListener("click",e=>{ const id=e.target.id;
   if(id==="tipOk"||id==="tip") $("#tip").classList.remove("open");
   if(id==="saNo"||id==="saveAsk") $("#saveAsk").classList.remove("open");
-  if(id==="saYes"){ $("#saveAsk").classList.remove("open"); makeListImage(); } });
+  if(id==="saYes"){ px("SaveMyList",{items:picks.length,from:"popup"},true); $("#saveAsk").classList.remove("open"); makeListImage(); } });
 function syncPicks(){
   $("#pickCount").textContent=picks.length;
   $("#floatTxt").textContent=`${picks.length} pick${picks.length===1?"":"s"} saved`;
@@ -1177,17 +1185,24 @@ function renderStores(list,lat,lng,intro){
   if(picks.length&&!window.__asked){ window.__asked=true; setTimeout(()=>{ $("#saStore").textContent="Nearest store: "+chosenStore.n; $("#saveAsk").classList.add("open"); },3500); }
 }
 function showParish(name,lat,lng){
+  px("FindLocation",{search_string:name});
   let g=grp(name), list=STORES.filter(s=>grp(s.p)===g), intro=`Stores in ${esc(g)}`;
   if(!list.length){ g=FALLBACK[name]; list=STORES.filter(s=>grp(s.p)===g); intro=`No store in ${esc(name)} yet. Closest stores are in ${esc(g)}`; }
   renderStores(list,lat,lng,intro);
 }
 function showNearest(lat,lng,label){
+  px("FindLocation",{search_string:"my location"});
   const near=STORES.map(s=>({...s,d:km(lat,lng,s.lat,s.lng)})).sort((a,b)=>a.d-b.d)[0];
   const g=grp(near.p);
   renderStores(STORES.filter(s=>grp(s.p)===g),lat,lng,`Closest to ${esc(label)}`);
 }
 $("#parishes").innerHTML=PARISHES.map(p=>`<button class="parish" data-parish="${p[0]}">${p[0]}</button>`).join("");
 
+/* ---------- pixel: store taps ---------- */
+document.addEventListener("click",e=>{ const a=e.target.closest("#results a"); if(!a) return;
+  const n=(a.closest(".store")?.querySelector("h4")?.textContent)||"";
+  if(a.href.startsWith("tel:")) px("Contact",{content_name:"Call "+n}); else px("GetDirections",{store:n},true);
+},true);
 /* ---------- events ---------- */
 document.addEventListener("click",e=>{
   const t=e.target.closest("button,a"); if(!t) return;
@@ -1195,7 +1210,7 @@ document.addEventListener("click",e=>{
   else if(t.dataset.feat){ featShade=t.dataset.feat; paintFeature(); }
   else if(t.id==="featAdd") addPick(P[0],featShade);
   else if(t.dataset.tone){ lipTone=t.dataset.tone; paintProductSheet(); }
-  else if(t.dataset.pick){ sheetShade=t.dataset.pick; paintProductSheet(); }
+  else if(t.dataset.pick){ sheetShade=t.dataset.pick; px("CustomizeProduct",{content_name:sheetProd.name+" - "+sheetShade}); paintProductSheet(); }
   else if(t.id==="sheetAdd"){ addPick(sheetProd,sheetShade); closeSheet(); }
   else if(t.dataset.rm!==undefined){ picks.splice(+t.dataset.rm,1); store.set(picks); syncPicks(); paintPicks(); }
   else if(t.hasAttribute("data-close")) closeSheet();
@@ -1209,8 +1224,8 @@ document.addEventListener("click",e=>{
       pos=>{ t.textContent="Use my location instead"; document.querySelectorAll(".parish").forEach(b=>b.classList.remove("on")); showNearest(pos.coords.latitude,pos.coords.longitude,"you"); },
       ()=>{ t.textContent="Use my location instead"; toast("Pick your parish instead"); },{timeout:9000});
   }
-  else if(t.hasAttribute("data-savelist")){ makeListImage(); }
-  else if(t.id==="shotSave"){ saveShot(); }
+  else if(t.hasAttribute("data-savelist")){ px("SaveMyList",{items:picks.length},true); makeListImage(); }
+  else if(t.id==="shotSave"){ px("SaveMyImage",{items:picks.length},true); saveShot(); }
   else if(t.id==="shotClose"){ $("#shot").classList.remove("open"); }
 });
 
@@ -1237,7 +1252,7 @@ $("#cform").addEventListener("submit",async e=>{
     const j=await r.json().catch(()=>({}));
     if(!r.ok||String(j.success)==="false") throw new Error(j.message||"fail");
     $("#fdoneTxt").textContent=`Thank you, ${v("name").split(" ")[0]}. Milani Cosmetics Jamaica has your message and will get back to you soon.`;
-    $("#contact").classList.add("sent"); f.reset(); $("#contact").scrollTo(0,0);
+    px("Lead",{content_name:"Contact form: "+f.type.value}); $("#contact").classList.add("sent"); f.reset(); $("#contact").scrollTo(0,0);
   }catch(x){
     const mail="mailto:"+CONTACT_EMAIL+"?subject="+encodeURIComponent("Message from "+v("name"))+"&body="+encodeURIComponent(v("message")+"\n\n"+v("name")+"\n"+v("phone")+"\n"+v("email"));
     err.innerHTML=`Sorry, that didn't send. Please call <a href="tel:+18763819444" style="color:#e9d9a6">(876) 381-9444</a> or <a href="${mail}" style="color:#e9d9a6">email us instead</a>.`;
