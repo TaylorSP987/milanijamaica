@@ -936,8 +936,8 @@ const POWDER_PHOTOS = {"190":"powder-190.jpg?v=4","140":"powder-140.jpg?v=3","15
 
 /* Fontana Pharmacy branches */
 const STORES = [
- {n:"Fontana Waterloo",a:"Waterloo Square, 12 West Kings House Road, Kingston 10",p:"St. Andrew",lat:18.0222,lng:-76.7922,ph:"876-619-7479",q:"Fontana Waterloo Square, Waterloo Square, 12 West Kings House Road, Kingston 10",pid:"ChIJU-ItXt4_244RJoFvhRdrZ18"},
- {n:"Fontana Barbican",a:"34 East Kings House Road, Barbican, Kingston 8",p:"St. Andrew",lat:18.0307,lng:-76.7752,ph:"876-946-2630",q:"Fontana Pharmacy Barbican, 34 East Kings House Road, Barbican, Kingston 8",pid:"ChIJjTjAPvc-244Rvi5u-OkgVb0"},
+ {n:"Fontana Waterloo",top:1,a:"Waterloo Square, 12 West Kings House Road, Kingston 10",p:"St. Andrew",lat:18.0222,lng:-76.7922,ph:"876-619-7479",q:"Fontana Waterloo Square, Waterloo Square, 12 West Kings House Road, Kingston 10",pid:"ChIJU-ItXt4_244RJoFvhRdrZ18"},
+ {n:"Fontana Barbican",top:2,a:"34 East Kings House Road, Barbican, Kingston 8",p:"St. Andrew",lat:18.0307,lng:-76.7752,ph:"876-946-2630",q:"Fontana Pharmacy Barbican, 34 East Kings House Road, Barbican, Kingston 8",pid:"ChIJjTjAPvc-244Rvi5u-OkgVb0"},
  {n:"Fontana Loshusan Plaza",last:1,a:"Loshusan Shopping Centre, 29 East Kings House Road, Kingston 8",p:"St. Andrew",lat:18.0298,lng:-76.7775,ph:"876-978-2013",q:"Fontana Pharmacy Barbican Centre, Loshusan Shopping Centre, 29 East Kings House Road, Kingston 8",pid:"ChIJ4YjxJjk_244RTFw_e52tsU8"},
  {n:"Fontana Sovereign Liguanea",last:1,a:"Sovereign Centre, 106 Hope Road, Kingston 6",p:"St. Andrew",lat:18.021,lng:-76.7694,ph:"876-978-3495",q:"Fontana Pharmacy Sovereign Centre, Sovereign Centre, 106 Hope Road, Kingston 6",pid:"ChIJiwPAwPw-244RcC7Vxe-kUl4"},
  {n:"Fontana Tropical Plaza",a:"Shop 23, Tropical Plaza, 10 Half Way Tree Road, Kingston 10",p:"St. Andrew",lat:18.0146,lng:-76.7967,ph:"876-920-1539",q:"Fontana Pharmacy Tropical Plaza, Shop 23, Tropical Plaza, 10 Half Way Tree Road, Kingston 10",pid:"ChIJxWWOi7M_244RCwStArBA0qU"},
@@ -1173,16 +1173,15 @@ const mapUrl=s=>"https://www.google.com/maps/search/?api=1&query="+encodeURIComp
 /* Fontana first, then other stockists, smallest-stock branches always last */
 const rank=s=>s.last?2:(/^Fontana/.test(s.n)?0:1);
 function renderStores(list,lat,lng,intro){
-  const r=list.map(s=>({...s,d:km(lat,lng,s.lat,s.lng)})).sort((a,b)=>rank(a)-rank(b)||(a.d-b.d)); /* newest, smallest-stock stores go last */
+  const r=list.map(s=>({...s,d:km(lat,lng,s.lat,s.lng)})).sort((a,b)=>rank(a)-rank(b)||((a.top||99)-(b.top||99))||(a.d-b.d)); /* newest, smallest-stock stores go last */
   chosenStore=r[0];
   $("#results").innerHTML=`<p class="intro caps">${intro}</p>`+r.map((s,i)=>`
-    <div class="store"><div>${i?"":`<div class="tag">Your nearest store</div>`}<h4>${esc(s.n)}</h4>
+    <div class="store"><div>${i?"":`<div class="tag">${s.top?"Most popular store":"Your nearest store"}</div>`}<h4>${esc(s.n)}</h4>
       <a class="ln" target="_blank" rel="noopener" href="${mapUrl(s)}">${PIN}<span>${esc(s.a)}</span></a>
       ${s.ph?`<a class="ln tel" href="${phTel(s.ph)}" aria-label="Call ${esc(s.n)}">${PHONE}<span>${phNice(s.ph)}</span></a>`:""}
       <div class="km">About ${s.d<1?1:Math.round(s.d)} km · ${esc(grp(s.p))}</div></div>
     <div class="acts"><a class="btn primary" target="_blank" rel="noopener" href="${mapUrl(s)}">${PIN}Directions</a>${s.ph?`<a class="btn ghost" href="${phTel(s.ph)}">${PHONE}Call</a>`:""}</div></div>`).join("");
   syncPicks(); $("#results").scrollIntoView({behavior:"smooth",block:"start"});
-  if(picks.length&&!window.__asked){ window.__asked=true; setTimeout(()=>{ $("#saStore").textContent="Nearest store: "+chosenStore.n; $("#saveAsk").classList.add("open"); },3500); }
 }
 function showParish(name,lat,lng){
   px("FindLocation",{search_string:name});
