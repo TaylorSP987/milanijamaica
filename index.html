@@ -293,6 +293,7 @@ footer .stock{display:inline-flex;align-items:center;gap:8px;margin-top:24px;fon
 .looks .lbl b{font-family:var(--display);font-weight:400;font-style:italic;font-size:20px;color:#e9d9a6;letter-spacing:0;text-transform:none}
 .lrow{display:flex;gap:10px;padding-left:16px;padding-right:16px;scroll-padding-left:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .lrow::-webkit-scrollbar{display:none}
+.looks.fits .lrow{justify-content:center}.looks.fits .lbl{justify-content:center}.looks.fits .lbl span{display:none}
 .ltile{position:relative;flex:0 0 min(68vw,300px);aspect-ratio:3/2;border-radius:14px;overflow:hidden;scroll-snap-align:start;background-repeat:no-repeat;background-color:#111;text-align:left}
 .ltile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.78))}
 .ltile span{position:absolute;left:14px;right:14px;bottom:11px;z-index:1;color:#fff;font-size:13px;font-weight:500;line-height:1.25}
@@ -1264,6 +1265,8 @@ document.addEventListener("keydown",e=>{ if(e.key==="Escape"){ closeSheet(); if(
 renderCatalog(); paintFeature(); syncPicks();
 const chipIO=new IntersectionObserver(es=>es.forEach(en=>{ if(en.isIntersecting){ document.querySelectorAll(".chip").forEach(c=>c.classList.toggle("on",c.dataset.chip===en.target.id)); const on=document.querySelector(`.chip[data-chip="${en.target.id}"]`); if(on){ const row=on.parentNode; row.scrollTo({left:on.offsetLeft-row.clientWidth/2+on.clientWidth/2,behavior:"smooth"}); } }}),{rootMargin:"-45% 0px -50% 0px"});
 document.querySelectorAll("section.cat").forEach(s=>chipIO.observe(s));
+function fitLooks(){ document.querySelectorAll(".looks").forEach(l=>{ const r=l.querySelector(".lrow"); l.classList.remove("fits"); if(r&&r.scrollWidth<=r.clientWidth+2) l.classList.add("fits"); }); }
+window.addEventListener("load",fitLooks); window.addEventListener("resize",()=>{clearTimeout(window.__fl);window.__fl=setTimeout(fitLooks,150);}); setTimeout(fitLooks,300);
 new IntersectionObserver(es=>{ nearWhere=es[0].isIntersecting; syncPicks(); },{threshold:.1}).observe($("#where"));
 const revIO=new IntersectionObserver(es=>es.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add("in"); revIO.unobserve(en.target); }}),{threshold:.08});
 document.querySelectorAll(".reveal").forEach(el=>revIO.observe(el));
