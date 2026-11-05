@@ -101,9 +101,9 @@ header{position:sticky;top:0;z-index:30;background:rgba(7,7,7,.82);backdrop-filt
 .chip.on{color:var(--ink);border-color:var(--silver)}
 
 /* sections + watermark */
-section.cat{position:relative;overflow-x:clip;padding:90px 0 20px;scroll-margin-top:130px}
-.water{position:absolute;left:50%;top:30px;transform:translateX(-50%);font-family:var(--brandfont);font-weight:600;font-size:min(20vw,240px);line-height:1;white-space:nowrap;color:rgba(212,175,90,.06);letter-spacing:.12em;pointer-events:none;user-select:none;z-index:0}
-.cat .head{position:relative;z-index:1;text-align:center;margin-bottom:44px}
+section.cat{position:relative;overflow-x:clip;padding:40px 0 20px;scroll-margin-top:130px}
+.water{display:none;position:absolute;left:50%;top:30px;transform:translateX(-50%);font-family:var(--brandfont);font-weight:600;font-size:min(20vw,240px);line-height:1;white-space:nowrap;color:rgba(212,175,90,.06);letter-spacing:.12em;pointer-events:none;user-select:none;z-index:0}
+.cat .head{position:relative;z-index:1;text-align:center;margin-bottom:32px}
 .cat .num{color:var(--dim)}
 .cat h2{font-family:var(--display);font-weight:700;font-size:clamp(36px,6vw,64px);line-height:1.02;margin:12px 0 10px}
 .cat .sub{color:var(--muted);max-width:460px;margin:0 auto}
@@ -186,7 +186,7 @@ section.cat{position:relative;overflow-x:clip;padding:90px 0 20px;scroll-margin-
 .float button{background:#0a0a0a;color:#fff;padding:12px 18px;font-size:10px;letter-spacing:.26em;text-transform:uppercase}
 
 /* where */
-#where{position:relative;padding:110px 0 70px;scroll-margin-top:72px;overflow-x:clip}
+#where{position:relative;padding:60px 0 70px;scroll-margin-top:72px;overflow-x:clip}
 .where-head{position:relative;z-index:1;text-align:center}
 .where-head h2{font-family:var(--display);font-weight:700;font-size:clamp(36px,6vw,64px);line-height:1.02;margin:12px 0 10px}
 .where-head p{color:var(--muted);max-width:480px;margin:0 auto}
