@@ -8,6 +8,7 @@
 <meta property="og:title" content="Milani Cosmetics Jamaica">
 <meta property="og:description" content="Find your shade. Find it at Fontana and stores across Jamaica.">
 <meta property="og:image" content="hero.jpg">
+<link rel="preload" as="image" href="hero.webp?v=10" type="image/webp" fetchpriority="high">
 <meta name="theme-color" content="#070707">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -326,7 +327,7 @@ fbq('init','4230199223783985');fbq('track','PageView');
 function px(ev,params,custom){try{fbq(custom?'trackCustom':'track',ev,params||{});}catch(e){}}
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=4230199223783985&ev=PageView&noscript=1"/></noscript>
-<style>.official{background:#0b0b0b;color:#e9d9a6;text-align:center;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:7px 12px;border-bottom:1px solid rgba(233,217,166,.25)}</style>
+<style>.official{background:#0b0b0b;color:#e9d9a6;text-align:center;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:7px 12px;border-bottom:1px solid rgba(233,217,166,.25)}@media(max-width:430px){.official{font-size:10px;letter-spacing:.08em;padding:7px 6px;white-space:nowrap}}</style>
 </head>
 <body>
 
@@ -345,7 +346,7 @@ function px(ev,params,custom){try{fbq(custom?'trackCustom':'track',ev,params||{}
   <div class="mark foil">MILANI</div>
   <div class="lock2">COSMETICS</div>
   <div class="lock3"><svg class="flag" viewBox="0 0 12 6" role="img" aria-label="Jamaican flag"><rect width="12" height="6" fill="#009b3a"/><path d="M0 0L6 3L0 6ZM12 0L6 3L12 6Z" fill="#000"/><path d="M0 0L12 6M12 0L0 6" stroke="#fed100" stroke-width="1"/></svg><span>JAMAICA</span><svg class="flag" viewBox="0 0 12 6" role="img" aria-label="Jamaican flag"><rect width="12" height="6" fill="#009b3a"/><path d="M0 0L6 3L0 6ZM12 0L6 3L12 6Z" fill="#000"/><path d="M0 0L12 6M12 0L0 6" stroke="#fed100" stroke-width="1"/></svg></div>
-  <figure><img src="hero.jpg?v=9" alt="Five women holding Milani Baked Blurring Finishing Powder, shades 140 to 180, now available in Jamaica at Fontana" onerror="this.parentNode.remove()"></figure>
+  <figure><picture><source srcset="hero.webp?v=10" type="image/webp"><img src="hero.jpg?v=10" fetchpriority="high" width="1080" height="1080" alt="Five women holding Milani Baked Blurring Finishing Powder, shades 140 to 180, now available in Jamaica at Fontana" onerror="this.closest('figure').remove()"></picture></figure>
 </div>
 
 <div class="steps3" aria-label="How it works"><span><i>1</i>Tap a shade</span><span><i>2</i>Save your list</span><span><i>3</i>Show it in store</span></div>
@@ -361,7 +362,7 @@ function px(ev,params,custom){try{fbq(custom?'trackCustom':'track',ev,params||{}
     <div><svg class="flag" viewBox="0 0 12 6" role="img" aria-label="Jamaican flag"><rect width="12" height="6" fill="#009b3a"/><path d="M0 0L6 3L0 6ZM12 0L6 3L12 6Z" fill="#000"/><path d="M0 0L12 6M12 0L0 6" stroke="#fed100" stroke-width="1"/></svg></div><div class="caps" style="color:var(--dim)">Where to buy in Jamaica</div>
     <h2 class="foil">Which parish are you in?</h2>
     <p>Every Fontana Pharmacy in Jamaica carries Milani, and so do selected pharmacies and beauty stores. Choose your parish and we will show you the closest ones.</p>
-    <img class="fontana-logo" src="fontana-logo.png" alt="Fontana Pharmacy" width="200" height="78">
+    <img class="fontana-logo" loading="lazy" src="fontana-logo.png" alt="Fontana Pharmacy" width="200" height="78">
     <div class="rule"></div>
   </div>
   <div class="parishes" id="parishes"></div>
@@ -1053,7 +1054,7 @@ function featureHTML(p){
 }
 function paintFeature(){
   const photo = POWDER_PHOTOS[featShade.split(" ")[0]];
-  $("#featPic").innerHTML = `<div class="big" style="${pan(col(featShade))}"></div>` + (photo?`<img alt="Model wearing shade ${esc(featShade)}" src="${photo}" onerror="this.remove()">`:"");
+  $("#featPic").innerHTML = `<div class="big" style="${pan(col(featShade))}"></div>` + (photo?`<img loading="lazy" alt="Model wearing shade ${esc(featShade)}" src="${photo}" onerror="this.remove()">`:"");
   $("#featName").textContent = featShade;
   document.querySelectorAll("[data-feat]").forEach(b=>b.classList.toggle("on",b.dataset.feat===featShade));
 }
