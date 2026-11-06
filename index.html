@@ -102,7 +102,7 @@ header{position:sticky;top:0;z-index:30;background:rgba(7,7,7,.82);backdrop-filt
 
 /* sections + watermark */
 section.cat{position:relative;overflow-x:clip;padding:40px 0 20px;scroll-margin-top:130px}
-.water{display:none;position:absolute;left:50%;top:30px;transform:translateX(-50%);font-family:var(--brandfont);font-weight:600;font-size:min(20vw,240px);line-height:1;white-space:nowrap;color:rgba(212,175,90,.06);letter-spacing:.12em;pointer-events:none;user-select:none;z-index:0}
+.water{position:absolute;left:50%;top:30px;transform:translateX(-50%);font-family:var(--brandfont);font-weight:600;font-size:min(20vw,240px);line-height:1;white-space:nowrap;color:rgba(212,175,90,.06);letter-spacing:.12em;pointer-events:none;user-select:none;z-index:0}
 .cat .head{position:relative;z-index:1;text-align:center;margin-bottom:32px}
 .cat .num{color:var(--dim)}
 .cat h2{font-family:var(--display);font-weight:700;font-size:clamp(36px,6vw,64px);line-height:1.02;margin:12px 0 10px}
@@ -186,6 +186,8 @@ section.cat{position:relative;overflow-x:clip;padding:40px 0 20px;scroll-margin-
 .float button{background:#0a0a0a;color:#fff;padding:12px 18px;font-size:10px;letter-spacing:.26em;text-transform:uppercase}
 
 /* where */
+.availat{display:flex;align-items:center;justify-content:center;gap:14px;margin:22px auto 4px;position:relative;z-index:1}.availat span{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}.availat img{width:150px;height:auto;display:block}
+.fontana-logo{display:block;width:200px;height:auto;margin:22px auto 0}
 #where{position:relative;padding:60px 0 70px;scroll-margin-top:72px;overflow-x:clip}
 .where-head{position:relative;z-index:1;text-align:center}
 .where-head h2{font-family:var(--display);font-weight:700;font-size:clamp(36px,6vw,64px);line-height:1.02;margin:12px 0 10px}
@@ -343,7 +345,7 @@ function px(ev,params,custom){try{fbq(custom?'trackCustom':'track',ev,params||{}
   <div class="mark foil">MILANI</div>
   <div class="lock2">COSMETICS</div>
   <div class="lock3"><svg class="flag" viewBox="0 0 12 6" role="img" aria-label="Jamaican flag"><rect width="12" height="6" fill="#009b3a"/><path d="M0 0L6 3L0 6ZM12 0L6 3L12 6Z" fill="#000"/><path d="M0 0L12 6M12 0L0 6" stroke="#fed100" stroke-width="1"/></svg><span>JAMAICA</span><svg class="flag" viewBox="0 0 12 6" role="img" aria-label="Jamaican flag"><rect width="12" height="6" fill="#009b3a"/><path d="M0 0L6 3L0 6ZM12 0L6 3L12 6Z" fill="#000"/><path d="M0 0L12 6M12 0L0 6" stroke="#fed100" stroke-width="1"/></svg></div>
-  <figure><img src="hero.jpg?v=8" alt="Five women holding Milani Baked Blurring Finishing Powder, shades 140 to 180, now available in Jamaica at Fontana" onerror="this.parentNode.remove()"></figure>
+  <figure><img src="hero.jpg?v=9" alt="Five women holding Milani Baked Blurring Finishing Powder, shades 140 to 180, now available in Jamaica at Fontana" onerror="this.parentNode.remove()"></figure>
 </div>
 
 <div class="steps3" aria-label="How it works"><span><i>1</i>Tap a shade</span><span><i>2</i>Save your list</span><span><i>3</i>Show it in store</span></div>
@@ -355,11 +357,11 @@ function px(ev,params,custom){try{fbq(custom?'trackCustom':'track',ev,params||{}
 <main class="wrap" id="catalog"></main>
 
 <section id="where" class="wrap">
-  <div class="water" aria-hidden="true">FONTANA</div>
   <div class="where-head reveal">
     <div><svg class="flag" viewBox="0 0 12 6" role="img" aria-label="Jamaican flag"><rect width="12" height="6" fill="#009b3a"/><path d="M0 0L6 3L0 6ZM12 0L6 3L12 6Z" fill="#000"/><path d="M0 0L12 6M12 0L0 6" stroke="#fed100" stroke-width="1"/></svg></div><div class="caps" style="color:var(--dim)">Where to buy in Jamaica</div>
     <h2 class="foil">Which parish are you in?</h2>
     <p>Every Fontana Pharmacy in Jamaica carries Milani, and so do selected pharmacies and beauty stores. Choose your parish and we will show you the closest ones.</p>
+    <img class="fontana-logo" src="fontana-logo.png" alt="Fontana Pharmacy" width="200" height="78">
     <div class="rule"></div>
   </div>
   <div class="parishes" id="parishes"></div>
@@ -999,7 +1001,6 @@ function renderCatalog(){
     if(id==="powders"){ featured=featureHTML(list[0]); rest=list.slice(1); }
     const wm = title.split(/[ ,&]+/)[0].toUpperCase();
     return `<section class="cat" id="${id}">
-      <div class="water" aria-hidden="true">${ci%2?"JAMAICA":"MILANI"}</div>
       <div class="head reveal"><div class="caps num">${String(ci+1).padStart(2,"0")} / ${String(CATS.length).padStart(2,"0")}</div>
         <h2 class="foil">${title}</h2><p class="sub">${sub}</p><div class="rule"></div></div>
       ${featured}${looksHTML(id)}
