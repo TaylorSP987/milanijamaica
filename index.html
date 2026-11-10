@@ -1234,7 +1234,7 @@ document.addEventListener("click",e=>{
 });
 
 /* ---------- contact ---------- */
-const CONTACT_EMAIL="bodyaccentsja@yahoo.com";
+const CONTACT_EMAIL="tiffaisama@yahoo.com";
 function openContact(){ closeSheet(); $("#contact").classList.remove("sent"); $("#contact").classList.add("open"); document.body.style.overflow="hidden"; if(location.hash!=="#contact") history.pushState(null,"","#contact"); }
 function closeContact(){ $("#contact").classList.remove("open"); document.body.style.overflow=""; if(location.hash==="#contact") history.back(); }
 window.addEventListener("popstate",()=>{ if(location.hash!=="#contact"){ $("#contact").classList.remove("open"); document.body.style.overflow=""; } });
